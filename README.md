@@ -14,6 +14,6 @@ Start phpMyAdmin ved å klikke på knapp "phpMyAdmin".
 Se forøvrig brukerveiledning for å importere test-databaser fra phpMyAdmin inn i MySQL.
 
 Uniform Server 11.5.2
-http://obj.kdrs.no/utilities/uniform-server/11_5_2_ZeroXI.exe
-http://obj.kdrs.no/utilities/uniform-server/Uniform_Server_11_5_2_checksum.txt
-http://obj.kdrs.no/utilities/uniform-server/Uniform_Server_11_5_2_readme.txt
+http://obj.kdrs.no/utilities/uniform-server/11_5_2_ZeroXI.exe <br>
+http://obj.kdrs.no/utilities/uniform-server/Uniform_Server_11_5_2_checksum.txt <br>
+http://obj.kdrs.no/utilities/uniform-server/Uniform_Server_11_5_2_readme.txt <br>
