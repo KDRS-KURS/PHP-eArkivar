@@ -7,8 +7,8 @@ Dokumentasjon fra kurset ligger i hovedmappe <a href="https://github.com/KDRS-KU
 Vil du ha tilgang til å redigere koden i dette GitHub-prosjektet eller har andre spørsmål? <br>
 Send epost til <mailto:torbjorn.aasen@ikamr.no> <br>
 
-KDRS Open Source har egen JIRA-konto for våre Open Source prosjekter.<br>
-http://kdrs-open-source.atlassian.net (mer info kommer)
+KDRS Open Source har egen JIRA-konto (mer info kommer).<br>
+http://kdrs-open-source.atlassian.net
 
 ## Verktøy brukt under kurset til å redigere PHP og MySQL server som PHP-kode kobler seg opp mot ##
 
