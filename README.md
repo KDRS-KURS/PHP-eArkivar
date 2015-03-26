@@ -1,6 +1,9 @@
 # PHP-eArkivar
 Introduksjonskurs om PHP-skript med grunnleggende elementer i PHP mot databaser og xml.
 
+PHP-eksempelkoder ligger i hovedmappe "php" med undermapper. <br>
+Dokumentasjon fra kurset ligger i hovedmappe "doc".
+
 Vil du ha tilgang til å redigere koden i dette GitHub-prosjektet eller har andre spørsmål? <br>
 Send epost til <mailto:torbjorn.aasen@ikamr.no> <br>
 
