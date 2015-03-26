@@ -4,8 +4,7 @@ Introduksjonskurs om PHP-skript med grunnleggende elementer i PHP mot databaser 
 PHP-eksempelkoder ligger i hovedmappe <a href="https://github.com/KDRS-KURS/PHP-eArkivar/tree/master/php" target="_blank">php</a> med undermapper.<br>
 Dokumentasjon fra kurset ligger i hovedmappe <a href="https://github.com/KDRS-KURS/PHP-eArkivar/tree/master/doc" target="_blank">doc</a>.
 
-Mer informasjon og analyse av ADDML finnes i prosjektet:<br>
-<a href="https://github.com/KDRS-SA/elarkiv-database-demo" target="_blank">KDRS Elarkiv Database Demo</a><br>
+Mer informasjon og analyse av ADDML finnes i prosjektet <a href="https://github.com/KDRS-SA/elarkiv-database-demo" target="_blank">KDRS Elarkiv Database Demo</a><br>
 <a href="https://github.com/KDRS-SA/elarkiv-database-demo/tree/master/standards/addml" target="_blank">ADDML mappe i KDRS Elarkiv Database Demo</a><br>
 
 Vil du ha tilgang til å redigere koden i dette GitHub-prosjektet eller har andre spørsmål?<br>
