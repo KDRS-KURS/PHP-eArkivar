@@ -1,6 +1,8 @@
 # PHP-eArkivar
 Introduksjonskurs om PHP-skript med grunnleggende elementer i PHP mot databaser og xml.
 
+Vil du ha tilgang til å redigere koden i dette GitHub-prosjektet eller har andre spørsmål? <br>
+Send epost til <mailto:torbjorn.aasen@ikamr.no>
 
 ## Verktøy brukt under kurset til å redigere PHP og MySQL server som PHP-kode kobler seg opp mot ##
 
