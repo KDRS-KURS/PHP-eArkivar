@@ -1,6 +1,14 @@
 # PHP-eArkivar
 Introduksjonskurs om PHP-skript med grunnleggende elementer i PHP mot databaser og xml.
 
+
+## Verktøy brukt under kurset til å redigere PHP og MySQL server som PHP-kode kobler seg opp mot ##
+
+### PHP editor ###
+geany er PHP-redigeringsprogram (IDE):
+https://download.geany.org/geany-1.23_setup.exe
+
+### MySQL server ###
 Uniform Server brukes som et komplett WAMP-kjørende miljø på Windows PC: <br>
 WAMP = Windows - Apache - MySQL - PHP
 
