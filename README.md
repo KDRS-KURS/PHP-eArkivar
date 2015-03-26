@@ -6,7 +6,7 @@ Dokumentasjon fra kurset ligger i hovedmappe <a href="https://github.com/KDRS-KU
 
 Mer informasjon og analyse av ADDML finnes i prosjektet:
 <a href="https://github.com/KDRS-SA/elarkiv-database-demo" target="_blank">KDRS Elarkiv Database Demo</a><br>
-< href="https://github.com/KDRS-SA/elarkiv-database-demo/tree/master/standards/addml" target="_blank">ADDML mappe i KDRS Elarkiv Database Demo</a><br>
+<a href="https://github.com/KDRS-SA/elarkiv-database-demo/tree/master/standards/addml" target="_blank">ADDML mappe i KDRS Elarkiv Database Demo</a><br>
 
 Vil du ha tilgang til å redigere koden i dette GitHub-prosjektet eller har andre spørsmål?<br>
 Send epost til <mailto:torbjorn.aasen@ikamr.no><br>
