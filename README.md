@@ -1,4 +1,4 @@
-# PHP_eArkivar
+# PHP-eArkivar
 Introduksjonskurs om PHP-skript med grunnleggende elementer i PHP mot databaser og xml.
 
 Uniform Server brukes som et komplett WAMP-kjørende miljø på Windows PC: <br>
@@ -9,7 +9,7 @@ Kjøre .exe fil under for å pakke ut Uniform Server lokalt.
 Kopier innholdet i hovedmappa som er pakket ut til f. eks.: <br>
 C:\uniserver-11.5.2
 
-Kjør UniController.exe, klikk på knapp "Start Apacje" og så knapp "Start MySQL". <br>
+Kjør UniController.exe, klikk på knapp "Start Apache" og så knapp "Start MySQL". <br>
 Start phpMyAdmin ved å klikke på knapp "phpMyAdmin". <br>
 Se forøvrig brukerveiledning for å importere test-databaser fra phpMyAdmin inn i MySQL. <br>
 
