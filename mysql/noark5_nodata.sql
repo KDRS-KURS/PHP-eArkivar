@@ -2,9 +2,9 @@ CREATE DATABASE  IF NOT EXISTS `noark5` /*!40100 DEFAULT CHARACTER SET latin1 */
 USE `noark5`;
 -- MySQL dump 10.13  Distrib 5.6.17, for Win32 (x86)
 --
--- Host: localhost    Database: noark5
+-- Host: 10.20.5.46    Database: noark5
 -- ------------------------------------------------------
--- Server version	5.5.38
+-- Server version	5.5.41-0ubuntu0.14.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -33,15 +33,6 @@ CREATE TABLE `author` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `author`
---
-
-LOCK TABLES `author` WRITE;
-/*!40000 ALTER TABLE `author` DISABLE KEYS */;
-/*!40000 ALTER TABLE `author` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `basic_record`
 --
 
@@ -64,15 +55,6 @@ CREATE TABLE `basic_record` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `basic_record`
---
-
-LOCK TABLES `basic_record` WRITE;
-/*!40000 ALTER TABLE `basic_record` DISABLE KEYS */;
-/*!40000 ALTER TABLE `basic_record` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `basic_record_author`
 --
 
@@ -90,15 +72,6 @@ CREATE TABLE `basic_record_author` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `basic_record_author`
---
-
-LOCK TABLES `basic_record_author` WRITE;
-/*!40000 ALTER TABLE `basic_record_author` DISABLE KEYS */;
-/*!40000 ALTER TABLE `basic_record_author` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `basic_record_keyword`
 --
 
@@ -114,15 +87,6 @@ CREATE TABLE `basic_record_keyword` (
   CONSTRAINT `FK_f67pekutp3xvgph6kca4jsi3l` FOREIGN KEY (`f_pk_record_id`) REFERENCES `basic_record` (`pk_record_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `basic_record_keyword`
---
-
-LOCK TABLES `basic_record_keyword` WRITE;
-/*!40000 ALTER TABLE `basic_record_keyword` DISABLE KEYS */;
-/*!40000 ALTER TABLE `basic_record_keyword` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `case_file`
@@ -146,15 +110,6 @@ CREATE TABLE `case_file` (
   CONSTRAINT `FK_g47wtxorxl7j6m1mrogttdfrm` FOREIGN KEY (`pk_file_id`) REFERENCES `file` (`pk_file_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `case_file`
---
-
-LOCK TABLES `case_file` WRITE;
-/*!40000 ALTER TABLE `case_file` DISABLE KEYS */;
-/*!40000 ALTER TABLE `case_file` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `class`
@@ -184,15 +139,6 @@ CREATE TABLE `class` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `class`
---
-
-LOCK TABLES `class` WRITE;
-/*!40000 ALTER TABLE `class` DISABLE KEYS */;
-/*!40000 ALTER TABLE `class` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `class_keyword`
 --
 
@@ -208,15 +154,6 @@ CREATE TABLE `class_keyword` (
   CONSTRAINT `FK_fs5h14d1bnjtdnu05hu13dyhb` FOREIGN KEY (`f_pk_class_id`) REFERENCES `class` (`pk_class_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `class_keyword`
---
-
-LOCK TABLES `class_keyword` WRITE;
-/*!40000 ALTER TABLE `class_keyword` DISABLE KEYS */;
-/*!40000 ALTER TABLE `class_keyword` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `classification_system`
@@ -238,15 +175,6 @@ CREATE TABLE `classification_system` (
   PRIMARY KEY (`pk_classification_system_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `classification_system`
---
-
-LOCK TABLES `classification_system` WRITE;
-/*!40000 ALTER TABLE `classification_system` DISABLE KEYS */;
-/*!40000 ALTER TABLE `classification_system` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `document_description`
@@ -273,17 +201,8 @@ CREATE TABLE `document_description` (
   PRIMARY KEY (`pk_document_description_id`),
   KEY `fk_name` (`document_description_record_id`),
   CONSTRAINT `document_description_ibfk_1` FOREIGN KEY (`document_description_record_id`) REFERENCES `record` (`pk_record_id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `document_description`
---
-
-LOCK TABLES `document_description` WRITE;
-/*!40000 ALTER TABLE `document_description` DISABLE KEYS */;
-/*!40000 ALTER TABLE `document_description` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `document_object`
@@ -312,17 +231,8 @@ CREATE TABLE `document_object` (
   KEY `FK_5kuiyhjyuk258f5worsunftd` (`document_object_record_id`),
   CONSTRAINT `FK_5kuiyhjyuk258f5worsunftd` FOREIGN KEY (`document_object_record_id`) REFERENCES `record` (`pk_record_id`),
   CONSTRAINT `FK_aba1hp827by6kyok9n414d3mc` FOREIGN KEY (`document_object_document_description_id`) REFERENCES `document_description` (`pk_document_description_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `document_object`
---
-
-LOCK TABLES `document_object` WRITE;
-/*!40000 ALTER TABLE `document_object` DISABLE KEYS */;
-/*!40000 ALTER TABLE `document_object` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `file`
@@ -360,16 +270,6 @@ CREATE TABLE `file` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `file`
---
-
-LOCK TABLES `file` WRITE;
-/*!40000 ALTER TABLE `file` DISABLE KEYS */;
-INSERT INTO `file` VALUES (1,'system','2011-10-11 17:34:29','','',NULL,'system','2011-10-11 19:26:36',NULL,'7fdc5a5d-2874-4d34-9692-303d631961d2','File10',NULL,NULL,1,NULL),(2,'system','2011-10-11 17:33:29','','',NULL,'system','2011-10-11 19:26:36',NULL,'b5638e85-f26c-4a60-bb16-abc74d3b9512','File1',NULL,NULL,1,NULL),(3,'system','2011-10-11 17:34:22','','',NULL,'system','2011-10-11 19:26:37',NULL,'18b5f512-c780-499c-837a-0d05d4c73dcf','File9',NULL,NULL,1,NULL),(4,'system','2011-10-11 17:33:41','','',NULL,'system','2011-10-11 19:26:37',NULL,'432978ea-eded-4e20-89ae-c129a8baee20','File3',NULL,NULL,1,NULL),(5,'system','2011-10-11 17:33:47','','',NULL,'system','2011-10-11 19:26:38',NULL,'4f56bbe3-f8e3-4ba0-9015-b3d5df015179','File4',NULL,NULL,1,NULL),(6,'system','2011-10-11 17:33:35','','',NULL,'system','2011-10-11 19:26:39',NULL,'74c828ac-7834-49c5-a868-687b324b9460','File2',NULL,NULL,1,NULL),(7,'system','2011-10-11 17:33:56','','',NULL,'system','2011-10-11 19:26:39',NULL,'8fb54fff-9cda-4a0e-8602-e5da70297ffa','File5',NULL,NULL,1,NULL),(8,'system','2011-10-11 17:34:02','','',NULL,'system','2011-10-11 19:26:40',NULL,'83029702-519a-4933-aeda-89ba6cfcee2b','File6',NULL,NULL,1,NULL),(9,'system','2011-10-11 18:37:00','','',NULL,'system','2011-10-11 19:26:40',NULL,'b1f3c9f6-8147-4c8b-9bfe-e1a577b68867','File11',NULL,NULL,1,NULL),(10,'system','2011-10-11 17:34:09','','',NULL,'system','2011-10-11 19:26:43',NULL,'346eef5b-41e0-433c-80d1-ae35cbe1f867','File7',NULL,NULL,1,NULL),(11,'system','2011-10-11 18:53:41','','',NULL,'system','2011-10-11 19:26:43',NULL,'d36b1b18-f963-4092-bf13-f45b58bc32e2','File12',NULL,NULL,1,NULL),(12,'system','2011-10-11 17:34:16','','',NULL,'system','2011-10-11 19:26:44',NULL,'cd69db61-5929-45de-ad63-513b55bc56fe','File8',NULL,NULL,1,NULL);
-/*!40000 ALTER TABLE `file` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `file_keyword`
 --
 
@@ -385,15 +285,6 @@ CREATE TABLE `file_keyword` (
   CONSTRAINT `FK_hepfbx70j9a7xujqoghy9pky0` FOREIGN KEY (`f_pk_keyword_id`) REFERENCES `keyword` (`pk_keyword_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `file_keyword`
---
-
-LOCK TABLES `file_keyword` WRITE;
-/*!40000 ALTER TABLE `file_keyword` DISABLE KEYS */;
-/*!40000 ALTER TABLE `file_keyword` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `fonds`
@@ -421,16 +312,6 @@ CREATE TABLE `fonds` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `fonds`
---
-
-LOCK TABLES `fonds` WRITE;
-/*!40000 ALTER TABLE `fonds` DISABLE KEYS */;
-INSERT INTO `fonds` VALUES (1,'system','2011-10-11 17:32:44','Subfonds5','Elektronisk arkiv','system','2011-10-11 19:26:36','Avsluttet','29713769-edf4-46f5-be47-51a0167fbfeb','Subfonds5',NULL);
-/*!40000 ALTER TABLE `fonds` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `fonds_creator`
 --
 
@@ -446,15 +327,6 @@ CREATE TABLE `fonds_creator` (
   PRIMARY KEY (`pk_fonds_creator_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `fonds_creator`
---
-
-LOCK TABLES `fonds_creator` WRITE;
-/*!40000 ALTER TABLE `fonds_creator` DISABLE KEYS */;
-/*!40000 ALTER TABLE `fonds_creator` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `fonds_fonds_creator`
@@ -474,15 +346,6 @@ CREATE TABLE `fonds_fonds_creator` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `fonds_fonds_creator`
---
-
-LOCK TABLES `fonds_fonds_creator` WRITE;
-/*!40000 ALTER TABLE `fonds_fonds_creator` DISABLE KEYS */;
-/*!40000 ALTER TABLE `fonds_fonds_creator` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `fonds_storage_location`
 --
 
@@ -500,15 +363,6 @@ CREATE TABLE `fonds_storage_location` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `fonds_storage_location`
---
-
-LOCK TABLES `fonds_storage_location` WRITE;
-/*!40000 ALTER TABLE `fonds_storage_location` DISABLE KEYS */;
-/*!40000 ALTER TABLE `fonds_storage_location` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `keyword`
 --
 
@@ -522,15 +376,6 @@ CREATE TABLE `keyword` (
   PRIMARY KEY (`pk_keyword_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `keyword`
---
-
-LOCK TABLES `keyword` WRITE;
-/*!40000 ALTER TABLE `keyword` DISABLE KEYS */;
-/*!40000 ALTER TABLE `keyword` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `record`
@@ -556,17 +401,8 @@ CREATE TABLE `record` (
   CONSTRAINT `FK_kdme5gs8menoxnfpohba1ql7c` FOREIGN KEY (`record_file_id`) REFERENCES `file` (`pk_file_id`),
   CONSTRAINT `FK_n2qfgleytsst1qa75pajmxwfc` FOREIGN KEY (`record_series_id`) REFERENCES `series` (`pk_series_id`),
   CONSTRAINT `FK_odsb9ljaukssypinqx83w83o7` FOREIGN KEY (`record_class_id`) REFERENCES `class` (`pk_class_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `record`
---
-
-LOCK TABLES `record` WRITE;
-/*!40000 ALTER TABLE `record` DISABLE KEYS */;
-/*!40000 ALTER TABLE `record` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `record_document_description`
@@ -584,15 +420,6 @@ CREATE TABLE `record_document_description` (
   CONSTRAINT `FK_r0hy921ma48snafsxnetwb9e9` FOREIGN KEY (`f_pk_document_description_id`) REFERENCES `document_description` (`pk_document_description_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `record_document_description`
---
-
-LOCK TABLES `record_document_description` WRITE;
-/*!40000 ALTER TABLE `record_document_description` DISABLE KEYS */;
-/*!40000 ALTER TABLE `record_document_description` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `registry_entry`
@@ -622,15 +449,6 @@ CREATE TABLE `registry_entry` (
   CONSTRAINT `FK_kwxomo0c0yos5mbe81lfd86ua` FOREIGN KEY (`pk_record_id`) REFERENCES `basic_record` (`pk_record_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `registry_entry`
---
-
-LOCK TABLES `registry_entry` WRITE;
-/*!40000 ALTER TABLE `registry_entry` DISABLE KEYS */;
-/*!40000 ALTER TABLE `registry_entry` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `series`
@@ -666,16 +484,6 @@ CREATE TABLE `series` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `series`
---
-
-LOCK TABLES `series` WRITE;
-/*!40000 ALTER TABLE `series` DISABLE KEYS */;
-INSERT INTO `series` VALUES (1,'system','2011-10-11 17:33:18','2010-2011','Elektronisk arkiv','system','2011-10-11 19:26:36',NULL,NULL,'Avsluttet periode','fe14ef56-b315-4569-9eda-d9c86404bbfe','2010-2011',NULL,1,NULL);
-/*!40000 ALTER TABLE `series` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `series_storage_location`
 --
 
@@ -693,15 +501,6 @@ CREATE TABLE `series_storage_location` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `series_storage_location`
---
-
-LOCK TABLES `series_storage_location` WRITE;
-/*!40000 ALTER TABLE `series_storage_location` DISABLE KEYS */;
-/*!40000 ALTER TABLE `series_storage_location` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `storage_location`
 --
 
@@ -715,15 +514,6 @@ CREATE TABLE `storage_location` (
   PRIMARY KEY (`pk_storage_location_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `storage_location`
---
-
-LOCK TABLES `storage_location` WRITE;
-/*!40000 ALTER TABLE `storage_location` DISABLE KEYS */;
-/*!40000 ALTER TABLE `storage_location` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -734,4 +524,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-03-30  2:22:41
+-- Dump completed on 2015-03-25 16:12:40
