@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uttrekk>
+  <arkiv>
+    <systemID>1</systemID>
+    <beskrivelse>En beskrivelse</beskrivelse>
+  </arkiv>
+  <arkiv>
+    <systemID>2</systemID>
+    <beskrivelse>Andre beskrivelse</beskrivelse>
+  </arkiv>
+</uttrekk>

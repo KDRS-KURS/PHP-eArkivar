@@ -23,8 +23,9 @@
 	}
 	print PHP_EOL;
 	
-	// SQL-spørring Arkiv: Les alle rader fra tabell 'fonds'
-	$sqlArkiv = 'SELECT * FROM fonds';
+	// Nivå 1 Arkiv
+	// SQL-spørring: Les alle rader fra tabell i variabel $tabellArkiv
+	$sqlArkiv = 'SELECT * FROM ' . $tabellArkiv;
 	$resultArkiv = $db->query($sqlArkiv);
 	
 	if(!$resultArkiv){
@@ -40,8 +41,8 @@
 
 	// Skriv XML til skjerm hvis arkiv-rader finnes
 	if ($numberArkivRows > 0) {
-		print '<arkiv>' .  PHP_EOL;
-
+		print '<uttrekk>' .  PHP_EOL;
+		
 		while($rowArkiv = $resultArkiv->fetch_assoc()){
 			print "\t" . '<arkiv>' .  PHP_EOL;
 			print "\t\t" . '<systemId>' . $rowArkiv['system_id'] . '</systemId>' . PHP_EOL;
@@ -51,7 +52,8 @@
 			print "\t\t" . '<created_by>' . $rowArkiv['created_by'] .'</created_by>' . PHP_EOL;
 			print "\t" . '</arkiv>' .  PHP_EOL;
 		}
-		print '</arkiv>' . PHP_EOL;
+		
+		print '</uttrekk>' . PHP_EOL;
 	}
 	
 	$resultArkiv->free();	

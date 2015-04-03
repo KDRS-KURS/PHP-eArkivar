@@ -41,7 +41,7 @@
 
 	// Skriv XML til skjerm hvis arkiv-rader finnes
 	if ($numberArkivRows > 0) {
-		print '<arkiv>' .  PHP_EOL;
+		print '<uttrekk>' .  PHP_EOL;
 		
 		while($rowArkiv = $resultArkiv->fetch_assoc()){
 			print "\t" . '<arkiv>' .  PHP_EOL;
@@ -51,7 +51,7 @@
 			print "\t" . '</arkiv>' .  PHP_EOL;
 		}
 		
-		print '</arkiv>' . PHP_EOL;
+		print '</uttrekk>' . PHP_EOL;
 	}
 	
 	$resultArkiv->free();	

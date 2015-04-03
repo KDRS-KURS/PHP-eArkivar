@@ -5,7 +5,7 @@
 	// Parametre for tilkobling til database
 	include_once '91_db-info.inc.php';	// database parametre i egen fil
 	
-	// Parametre for tilkobling til database
+	// Parametre for XML
 	include_once '92_xml-info.inc.php';	// xml-filer parametre i egen fil
 	
 	// Koble til databasen;
@@ -49,7 +49,7 @@
 		$arkivFil = fopen($filnavn, 'w');
 		
 		fwrite($arkivFil, '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL);
-		fwrite($arkivFil, '<arkiv>' .  PHP_EOL);
+		fwrite($arkivFil, '<uttrekk>' .  PHP_EOL);
 		
 		while($rowArkiv = $resultArkiv->fetch_assoc()){
 			fwrite( $arkivFil, "\t" . '<arkiv>' .  PHP_EOL);
@@ -61,7 +61,7 @@
 			fwrite( $arkivFil, "\t" . '</arkiv>' .  PHP_EOL);
 		}
 		
-		fwrite( $arkivFil, '</arkiv>' .  PHP_EOL);
+		fwrite( $arkivFil, '</uttrekk>' .  PHP_EOL);
 		print 'Lagret xml til fil ' . $filnavn . PHP_EOL;
 		
 	} else {

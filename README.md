@@ -14,6 +14,38 @@ Send epost til <mailto:torbjorn.aasen@ikamr.no><br>
 KDRS Open Source har egen JIRA-konto (mer info kommer).<br>
 http://kdrs-open-source.atlassian.net
 
+## PHP XML ##
+
+XML-dokumentasjon i PHP er litt forvirrende siden hovedside for informasjon er litt ustrukturert og med beslektede emner.<br>
+http://php.net/manual/en/refs.xml.php<br>
+
+Kort presentasjon av hovedelementene for å behandle XML i PHP:<br>
+
+1. PHP XML DOM - Document Object Model - operasjoner mot XML-dokumenter med DOM API.<br>
+Laster hele XML-filen i minnet; fort problemer med store filer, men veldig rask.<br>
+DOM bruker UTF-8 tegnsett. Bruk utf8_encode() og utf8_decode() ved bruk av ISO-8859-1 tegnsett og iconv for andre tegnsett<br>
+This extension requires the libxml PHP extension. This means that passing in --enable-libxml is also required, although this is implicitly accomplished because libxml is enabled by default.<br>
+http://php.net/manual/en/book.dom.php<br>
+
+2. PHP SimpleXML - Veldig enkelt å bruke verktøykasse for å konvertere XML til objekt som kan prosesseres med "property selevtors and array iterators".<br>
+Laster hele XML-objektet i minnet.<br>
+This extension is enabled by default. It may be disabled by using the following option at compile time: --disable-simplexml<br>
+http://php.net/manual/en/book.simplexml.php<br>
+
+3. PHP XML Parser - SAX-basert.<br>
+Analyserer syntaktisk (parse) XML-dokumenter, men kan ikke validere XML.<br>
+Hendelsesbasert, bedre minnehåndtering (laster ikke hele filen inn i minnet).<br>
+Støtter tegnsettene som i PHP: US-ASCII, ISO-8859-1 og UTF-8 (men ikke UTF-16).<br>
+http://php.net/manual/en/book.xml.php
+
+4. PHP XMLReader - SAX-basert XML Pull parser (syntaktisk analyse)<br>
+Leser gjennom dokumentet fra en XML-node til den neste og er derfor minneeffektiv og kan lese gjennom store XML-dokumenter uten minneproblemer (fordi bare deler av XML-objektet lastes inn i minnet om gangen).<br>
+Internt bruker libxml UTF-8 tegnsett slik at innholdet vil alltid være i UTF-8.<br>
+http://php.net/manual/en/book.xmlreader.php<br>
+
+5. PHP XMLWriter - SAX-basert XML generator som skriver XML-data fortløpende.<br>
+http://php.net/manual/en/book.xmlwriter.php<br>
+
 ## Verktøy ###
 Alternativer for kursdeltakere:<br>
 Se på og redigere PHP-kode.<br>
