@@ -23,12 +23,13 @@
 	}
 	print PHP_EOL;
 	
-	// SQL-spørring: Les alle rader fra tabell 'fonds'
-	$sql = 'SELECT * FROM fonds';
+	// Nivå 1 Arkiv
+	// SQL-spørring: Les alle rader fra tabell i variabel $tabellArkiv
+	$sql = 'SELECT * FROM ' . $tabellArkiv;
 	$result = $db->query($sql);
 	
 	if(!$result){
-		die('Det oppsto et problem med spørringen (' . $sql . ').' . 
+		die('Det oppsto et problem med spørringen Arkiv (' . $sql . ').' . 
 			 PHP_EOL . 'Feilen er (' . $db->error . ')');
 	}
 	
@@ -39,12 +40,12 @@
 	
 	// Bla gjennom alle rader (resultat av spørring)
 	while($row = $result->fetch_assoc()){
-		// Vis spesifikk(e) felt(er) for denne rad (i tabellen 'fonds')
+		// Vis spesifikk(e) felt(er) for denne rad (i tabellen for Arkiv)
 		print 'Tittel er (' . $row['title'] .')' . PHP_EOL;
 		print 'SystemID er (' . $row['system_id'] . ')' . PHP_EOL;
 		print PHP_EOL;
 		
-		// Vise hele array av felter for denne rad (i tabellen 'fonds')
+		// Vise hele array av felter for denne rad (i tabellen for Arkiv)
 		print_r($row);
 	}
 	

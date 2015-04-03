@@ -23,7 +23,8 @@
 	}
 	print PHP_EOL;
 	
-	// SQL-spørring Arkiv: Les alle rader fra tabell 'fonds'
+	// Nivå 1 Arkiv
+	// SQL-spørring: Les alle rader fra tabell 'fonds'
 	$sqlArkiv = 'SELECT * FROM fonds';
 	$resultArkiv = $db->query($sqlArkiv);
 	
@@ -44,7 +45,8 @@
 		print '(Arkiv) ArkivID er (' . $rowArkiv['pk_fonds_id'] . ')' . PHP_EOL;
 		print PHP_EOL;
 		
-		// SQL-spørring Arkivdel: Les alle rader fra tabell 'series'
+		// Nivå 2 Arkivdel
+		// SQL-spørring: Les alle rader fra tabell 'series'
 		$sqlArkivdel = 'SELECT * FROM series WHERE series_fonds_id = ' . "'" .
 						$rowArkiv['pk_fonds_id'] . "'";
 		$resultArkivdel = $db->query($sqlArkivdel);
@@ -66,7 +68,8 @@
 			print '(Arkivdel) ArkivdelID er (' . $rowArkivdel['pk_series_id'] . ')' . PHP_EOL;
 			print PHP_EOL;
 			
-			// SQL-spørring Saksmappe: Les alle rader fra tabell 'file'
+			// Nivå 3 Saksmappe
+			// SQL-spørring: Les alle rader fra tabell 'file'
 			$sqlSaksmappe = 'SELECT * FROM file WHERE file_series_id = ' . "'" .
 							$rowArkivdel['pk_series_id'] . "'";
 			$resultSaksmappe = $db->query($sqlSaksmappe);

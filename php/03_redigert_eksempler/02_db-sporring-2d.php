@@ -23,9 +23,9 @@
 	}
 	print PHP_EOL;
 	
-	// Nivå 1
-	// SQL-spørring: Les alle rader fra tabell 'fonds'
-	$sql = 'SELECT * FROM fonds';
+	// Nivå 1 Arkiv
+	// SQL-spørring: Les alle rader fra tabell i variabel $tabellArkiv
+	$sql = 'SELECT * FROM ' . $tabellArkiv;
 	$result = $db->query($sql);
 	
 	if(!$result){
@@ -40,14 +40,14 @@
 	
 	// Bla gjennom alle rader (resultat av spørring)
 	while($row = $result->fetch_assoc()){		
-		// Vise hele array av felter for denne rad (i tabellen 'fonds')
+		// Vise hele array av felter for denne rad (i tabellen for Arkiv)
 		print_r($row);
 	}
 	print PHP_EOL;
 	
-	// Nivå 2
-	// SQL-spørring: Les alle rader fra tabell 'series'
-	$sql = 'SELECT * FROM series';
+	// Nivå 2 Arkivdel
+	// SQL-spørring: Les alle rader fra tabell i variabel $tabellArkivdel
+	$sql = 'SELECT * FROM ' . $tabellArkivdel;
 	$result = $db->query($sql);
 	
 	if(!$result){
@@ -62,14 +62,14 @@
 	
 	// Bla gjennom alle rader (resultat av spørring)
 	while($row = $result->fetch_assoc()){
-		// Vise hele array av felter for denne rad (i tabellen 'fonds')
+		// Vise hele array av felter for denne rad (i tabellen for Arkivdel)
 		print_r($row);
 	}
 	print PHP_EOL;
 	
-	// Nivå 3
-	// SQL-spørring: Les alle rader fra tabell 'file'
-	$sql = 'SELECT * FROM file';
+	// Nivå 3 Saksmappe
+	// SQL-spørring: Les alle rader fra tabell i variabel $tabellSaksmappe
+	$sql = 'SELECT * FROM ' . $tabellSaksmappe;
 	$result = $db->query($sql);
 	
 	if(!$result){
@@ -84,7 +84,7 @@
 	
 	// Bla gjennom alle rader (resultat av spørring)
 	while($row = $result->fetch_assoc()){
-		// Vise hele array av felter for denne rad (i tabellen 'file')
+		// Vise hele array av felter for denne rad (i tabellen for Saksmappe)
 		print_r($row);
 	}
 	

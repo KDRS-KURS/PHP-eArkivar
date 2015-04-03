@@ -23,12 +23,13 @@
 	}
 	print PHP_EOL;
 
-	// SQL-spørring: Les alle rader fra tabell 'fonds'
-	$sql = 'SELECT * FROM fonds';
+	// Nivå 1 Arkiv
+	// SQL-spørring: Les alle rader fra tabell i variabel $tabellArkiv
+	$sql = 'SELECT * FROM ' . $tabellArkiv;
 	$result = $db->query($sql);
 	
 	if(!$result){
-		die('Det oppsto et problem med spørringen (' . $sql . ').' . 
+		die('Det oppsto et problem med spørringen Arkiv (' . $sql . ').' . 
 			 PHP_EOL . 'Feilen er (' . $db->error . ')');
 	}
 	
@@ -39,17 +40,18 @@
 	
 	// Bla gjennom alle rader (resultat av spørring)
 	while($row = $result->fetch_assoc()){		
-		// Vise hele array av felter for denne rad (i tabellen 'fonds')
+		// Vise hele array av felter for denne rad (i tabellen for Arkiv)
 		print_r($row);
 	}
 	print PHP_EOL;
 	
-	// SQL-spørring: Les alle rader fra tabell 'series'
-	$sql = 'SELECT * FROM series';
+	// Nivå 2 Arkivdel
+	// SQL-spørring: Les alle rader fra tabell i variabel $tabellArkivdel
+	$sql = 'SELECT * FROM ' . $tabellArkivdel;
 	$result = $db->query($sql);
 	
 	if(!$result){
-		die('Det oppsto et problem med spørringen (' . $sql . ').' . 
+		die('Det oppsto et problem med spørringen Arkivdel (' . $sql . ').' . 
 			 PHP_EOL . 'Feilen er (' . $db->error . ')');
 	}
 	
@@ -60,7 +62,7 @@
 	
 	// Bla gjennom alle rader (resultat av spørring)
 	while($row = $result->fetch_assoc()){
-		// Vise hele array av felter for denne rad (i tabellen 'fonds')
+		// Vise hele array av felter for denne rad (i tabellen for Arkivdel)
 		print_r($row);
 	}
 	
