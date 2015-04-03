@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<arkiv>
+	<arkiv>
+		<pk_fonds_id>1</pk_fonds_id>
+		<created_by>system</created_by>
+		<created_date>2011-10-11 17:32:44</created_date>
+		<description>Subfonds5</description>
+		<document_medium>Elektronisk arkiv</document_medium>
+		<finalised_by>system</finalised_by>
+		<finalised_date>2011-10-11 19:26:36</finalised_date>
+		<fonds_status>Avsluttet</fonds_status>
+		<system_id>29713769-edf4-46f5-be47-51a0167fbfeb</system_id>
+		<title>Subfonds5</title>
+		<referenceParentFonds_pk_fonds_id></referenceParentFonds_pk_fonds_id>
+	</arkiv>
+</arkiv>
