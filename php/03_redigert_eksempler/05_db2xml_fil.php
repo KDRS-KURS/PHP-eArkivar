@@ -8,6 +8,9 @@
 	// Parametre for XML
 	include_once '92_xml-info.inc.php';	// xml-filer parametre i egen fil
 	
+	// Generelle parametre
+	$filnavn = $xmlHcFilnavnUtTest;
+	
 	// Koble til databasen;
 	$db = new mysqli($IPAdresse, $brukernavn, $passord, $databasenavn);
 
@@ -45,7 +48,6 @@
 	// Skriv XML til fil hvis arkiv-rader finnes
 	if ($numberArkivRows > 0) {		
 		// Åpne xml-fil for skriving
-		$filnavn = $xmlHcFilnavnUt;
 		$arkivFil = fopen($filnavn, 'w');
 		
 		fwrite($arkivFil, '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL);

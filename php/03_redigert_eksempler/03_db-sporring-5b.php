@@ -77,6 +77,7 @@
 		// Nivå 2 Arkivdel
 		print 'II: Arkivdel';
 		print PHP_EOL;
+		$countArkivdel = 0;
 		
 		// SQL-spørring Arkivdel: Les alle rader fra tabell i variabel $tabellArkivdel
 		$sqlArkivdel = 'SELECT * FROM ' . $tabellArkivdel . ' WHERE ' . $keyArkivdelArkiv . ' = ' . "'" .
@@ -123,6 +124,7 @@
 			// Nivå 3 Saksmappe
 			print 'III: Saksmappe';
 			print PHP_EOL;
+			$countSaksmappe = 0;
 			
 			// SQL-spørring Saksmappe: Les alle rader fra tabell i variabel $tabellSaksmappe
 			$sqlSaksmappe = 'SELECT * FROM ' . $tabellSaksmappe . ' WHERE ' . $keySaksmappeArkivdel . ' = ' . "'" .
@@ -142,7 +144,7 @@
 			while($rowSaksmappe = $resultSaksmappe->fetch_assoc()){
 				$countSaksmappe += 1;
 				// Begrenset antall Saksmapper i while-løkke
-				if ($countSaksmappe > $numSaksmappeLimit) {
+				if (($countSaksmappe > $numSaksmappeLimit) AND ($numSaksmappeLimit > 0)) {
 					if ($bolBreakSaksmappeLimit) {
 						// Exit while
 						break;
@@ -179,7 +181,7 @@
 			}	// end while Saksmappe
 			
 			// Saksmappe teller
-			if ($countSaksmappe > $numSaksmappeLimit) {
+			if (($countSaksmappe > $numSaksmappeLimit) AND ($numSaksmappeLimit > 0)) {
 				if ($bolBreakSaksmappeLimit) {
 					print 'Stopper etter ' . ($countSaksmappe-1) . ' Saksmapper';
 					print PHP_EOL;

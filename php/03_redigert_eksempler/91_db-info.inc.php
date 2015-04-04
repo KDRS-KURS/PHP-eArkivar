@@ -27,7 +27,7 @@
 	// B: Velg alle Arkiv-kolonner (bla gjennom alle verdier)?
 	$bolVisArkivAll = True;
 	// C: Velg alle Arkiv-kolonner med print_r?
-	$bolVisArkivPrintR = True;
+	$bolVisArkivPrintR = False;
 	
 	// Nivå 2 Arkivdel
 	$tabellArkivdel = 'series';	// standardverdi = 'series'
@@ -45,7 +45,7 @@
 	// B: Velg alle Arkivdel-kolonner (bla gjennom alle verdier)?
 	$bolVisArkivdelAll = True;
 	// C: Velg alle Arkivdel-kolonner med print_r?
-	$bolVisArkivdelPrintR = True;
+	$bolVisArkivdelPrintR = False;
 	
 	// Nivå 3 Saksmappe
 	$tabellSaksmappe = 'file';	// standardverdi = 'file'
@@ -63,6 +63,6 @@
 	// B: Velg alle Saksmappe-kolonner (bla gjennom alle verdier)?
 	$bolVisSaksmappeAll = True;
 	// C: Velg alle Saksmappe-kolonner med print_r?
-	$bolVisSaksmappePrintR = True;
+	$bolVisSaksmappePrintR = False;
 	
 ?>

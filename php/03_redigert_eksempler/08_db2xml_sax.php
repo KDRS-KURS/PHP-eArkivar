@@ -8,12 +8,12 @@
 	// Parametre for XML
 	include_once '92_xml-info.inc.php';	// xml-filer parametre i egen fil
 	
-	// Generelle parametre
-	$filnavn = $xmlHcFilnavnUtTest;
-	
 	// Koble til databasen;
 	$db = new mysqli($IPAdresse, $brukernavn, $passord, $databasenavn);
-
+	
+	// Generelle parametre
+	$filnavn = $xmlSaxFilnavnUtSql;
+	
 	print PHP_EOL;
 	print 'Prøver å opprette kobling til ' . PHP_EOL;
 	print 'maskin (' . $IPAdresse . '), ' . PHP_EOL;
@@ -28,7 +28,7 @@
 		print 'Koblet til database' . PHP_EOL;
 	}
 	print PHP_EOL;
-	
+
 	// Nivå 1 Arkiv
 	// SQL-spørring: Les alle rader fra tabell i variabel $tabellArkiv
 	$sqlArkiv = 'SELECT * FROM ' . $tabellArkiv;
@@ -47,29 +47,31 @@
 	
 	// Skriv XML til fil hvis arkiv-rader finnes
 	if ($numberArkivRows > 0) {
-		// Åpne xml-fil for skriving
-		$arkivFil = fopen($filnavn, 'w');
-		
-		fwrite($arkivFil, $xmlHeader . PHP_EOL);
-		fwrite($arkivFil, '<uttrekk>' .  PHP_EOL);
+		// Ny instans SAX XMLWriter
+		$addmlSAX = new XMLWriter();
+		$addmlSAX->OpenURI($filnavn);
+		//$addmlSAX->OpenURI('php://output');
+		$addmlSAX->startDocument('1.0','UTF-8');
+		$addmlSAX->setIndent(true);
+
+		$addmlSAX->startElement('uttrekk');
 
 		while($rowArkiv = $resultArkiv->fetch_assoc()){
-			fwrite( $arkivFil, "\t" . '<arkiv>' .  PHP_EOL);
+			$addmlSAX->startElement('arkiv');
 			foreach ($rowArkiv as $rowKey => $rowValue) {
-				fwrite( $arkivFil, "\t\t" . '<' . $rowKey . '>' . $rowValue . '</' . $rowKey . '>' . PHP_EOL);
+				$addmlSAX->writeElement($rowKey, $rowValue);
 			}			
-			fwrite( $arkivFil, "\t" . '</arkiv>' .  PHP_EOL);
+			$addmlSAX->endElement();	// </arkiv>
 		}
 		
-		fwrite( $arkivFil, '</uttrekk>' .  PHP_EOL);
+		$addmlSAX->endElement();	// </uttrekk>
+		$addmlSAX->endDocument();
+		$addmlSAX->flush();
+		
 		print 'Lagret xml til fil ' . $filnavn . PHP_EOL;
 		
 	} else {
 		print 'IKKE lagret xml til fil fordi ingen arkiv-rader funnet i database-tabell' . PHP_EOL;
 	}
-	
-	$resultArkiv->free();	
-	$db->close();
-
+		
 ?>
-

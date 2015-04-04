@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uttrekk>
+ <arkiv>
+  <pk_fonds_id>1</pk_fonds_id>
+  <created_by>system</created_by>
+  <created_date>2011-10-11 17:32:44</created_date>
+  <description>Subfonds5</description>
+  <document_medium>Elektronisk arkiv</document_medium>
+  <finalised_by>system</finalised_by>
+  <finalised_date>2011-10-11 19:26:36</finalised_date>
+  <fonds_status>Avsluttet</fonds_status>
+  <system_id>29713769-edf4-46f5-be47-51a0167fbfeb</system_id>
+  <title>Subfonds5</title>
+  <referenceParentFonds_pk_fonds_id/>
+  <arkivdel>
+   <pk_series_id>1</pk_series_id>
+   <created_by>system</created_by>
+   <created_date>2011-10-11 17:33:18</created_date>
+   <description>2010-2011</description>
+   <document_medium>Elektronisk arkiv</document_medium>
+   <finalised_by>system</finalised_by>
+   <finalised_date>2011-10-11 19:26:36</finalised_date>
+   <series_end_date/>
+   <series_start_date/>
+   <series_status>Avsluttet periode</series_status>
+   <system_id>fe14ef56-b315-4569-9eda-d9c86404bbfe</system_id>
+   <title>2010-2011</title>
+   <series_classification_system_id/>
+   <series_fonds_id>1</series_fonds_id>
+   <referencePrecursor_pk_series_id/>
+   <saksmappe>
+    <pk_file_id>1</pk_file_id>
+    <created_by>system</created_by>
+    <created_date>2011-10-11 17:34:29</created_date>
+    <description></description>
+    <document_medium></document_medium>
+    <file_id/>
+    <finalised_by>system</finalised_by>
+    <finalised_date>2011-10-11 19:26:36</finalised_date>
+    <official_title/>
+    <system_id>7fdc5a5d-2874-4d34-9692-303d631961d2</system_id>
+    <title>File10</title>
+    <file_class_id/>
+    <referenceParentFile_pk_file_id/>
+    <file_series_id>1</file_series_id>
+    <file_storage_location_id/>
+   </saksmappe>
+   <saksmappe>
+    <pk_file_id>2</pk_file_id>
+    <created_by>system</created_by>
+    <created_date>2011-10-11 17:33:29</created_date>
+    <description></description>
+    <document_medium></document_medium>
+    <file_id/>
+    <finalised_by>system</finalised_by>
+    <finalised_date>2011-10-11 19:26:36</finalised_date>
+    <official_title/>
+    <system_id>b5638e85-f26c-4a60-bb16-abc74d3b9512</system_id>
+    <title>File1</title>
+    <file_class_id/>
+    <referenceParentFile_pk_file_id/>
+    <file_series_id>1</file_series_id>
+    <file_storage_location_id/>
+   </saksmappe>
+   <saksmappe>
+    <pk_file_id>3</pk_file_id>
+    <created_by>system</created_by>
+    <created_date>2011-10-11 17:34:22</created_date>
+    <description></description>
+    <document_medium></document_medium>
+    <file_id/>
+    <finalised_by>system</finalised_by>
+    <finalised_date>2011-10-11 19:26:37</finalised_date>
+    <official_title/>
+    <system_id>18b5f512-c780-499c-837a-0d05d4c73dcf</system_id>
+    <title>File9</title>
+    <file_class_id/>
+    <referenceParentFile_pk_file_id/>
+    <file_series_id>1</file_series_id>
+    <file_storage_location_id/>
+   </saksmappe>
+   <saksmappe>
+    <pk_file_id>4</pk_file_id>
+    <created_by>system</created_by>
+    <created_date>2011-10-11 17:33:41</created_date>
+    <description></description>
+    <document_medium></document_medium>
+    <file_id/>
+    <finalised_by>system</finalised_by>
+    <finalised_date>2011-10-11 19:26:37</finalised_date>
+    <official_title/>
+    <system_id>432978ea-eded-4e20-89ae-c129a8baee20</system_id>
+    <title>File3</title>
+    <file_class_id/>
+    <referenceParentFile_pk_file_id/>
+    <file_series_id>1</file_series_id>
+    <file_storage_location_id/>
+   </saksmappe>
+   <saksmappe>
+    <pk_file_id>5</pk_file_id>
+    <created_by>system</created_by>
+    <created_date>2011-10-11 17:33:47</created_date>
+    <description></description>
+    <document_medium></document_medium>
+    <file_id/>
+    <finalised_by>system</finalised_by>
+    <finalised_date>2011-10-11 19:26:38</finalised_date>
+    <official_title/>
+    <system_id>4f56bbe3-f8e3-4ba0-9015-b3d5df015179</system_id>
+    <title>File4</title>
+    <file_class_id/>
+    <referenceParentFile_pk_file_id/>
+    <file_series_id>1</file_series_id>
+    <file_storage_location_id/>
+   </saksmappe>
+   <saksmappe>
+    <pk_file_id>6</pk_file_id>
+    <created_by>system</created_by>
+    <created_date>2011-10-11 17:33:35</created_date>
+    <description></description>
+    <document_medium></document_medium>
+    <file_id/>
+    <finalised_by>system</finalised_by>
+    <finalised_date>2011-10-11 19:26:39</finalised_date>
+    <official_title/>
+    <system_id>74c828ac-7834-49c5-a868-687b324b9460</system_id>
+    <title>File2</title>
+    <file_class_id/>
+    <referenceParentFile_pk_file_id/>
+    <file_series_id>1</file_series_id>
+    <file_storage_location_id/>
+   </saksmappe>
+   <saksmappe>
+    <pk_file_id>7</pk_file_id>
+    <created_by>system</created_by>
+    <created_date>2011-10-11 17:33:56</created_date>
+    <description></description>
+    <document_medium></document_medium>
+    <file_id/>
+    <finalised_by>system</finalised_by>
+    <finalised_date>2011-10-11 19:26:39</finalised_date>
+    <official_title/>
+    <system_id>8fb54fff-9cda-4a0e-8602-e5da70297ffa</system_id>
+    <title>File5</title>
+    <file_class_id/>
+    <referenceParentFile_pk_file_id/>
+    <file_series_id>1</file_series_id>
+    <file_storage_location_id/>
+   </saksmappe>
+   <saksmappe>
+    <pk_file_id>8</pk_file_id>
+    <created_by>system</created_by>
+    <created_date>2011-10-11 17:34:02</created_date>
+    <description></description>
+    <document_medium></document_medium>
+    <file_id/>
+    <finalised_by>system</finalised_by>
+    <finalised_date>2011-10-11 19:26:40</finalised_date>
+    <official_title/>
+    <system_id>83029702-519a-4933-aeda-89ba6cfcee2b</system_id>
+    <title>File6</title>
+    <file_class_id/>
+    <referenceParentFile_pk_file_id/>
+    <file_series_id>1</file_series_id>
+    <file_storage_location_id/>
+   </saksmappe>
+   <saksmappe>
+    <pk_file_id>9</pk_file_id>
+    <created_by>system</created_by>
+    <created_date>2011-10-11 18:37:00</created_date>
+    <description></description>
+    <document_medium></document_medium>
+    <file_id/>
+    <finalised_by>system</finalised_by>
+    <finalised_date>2011-10-11 19:26:40</finalised_date>
+    <official_title/>
+    <system_id>b1f3c9f6-8147-4c8b-9bfe-e1a577b68867</system_id>
+    <title>File11</title>
+    <file_class_id/>
+    <referenceParentFile_pk_file_id/>
+    <file_series_id>1</file_series_id>
+    <file_storage_location_id/>
+   </saksmappe>
+   <saksmappe>
+    <pk_file_id>10</pk_file_id>
+    <created_by>system</created_by>
+    <created_date>2011-10-11 17:34:09</created_date>
+    <description></description>
+    <document_medium></document_medium>
+    <file_id/>
+    <finalised_by>system</finalised_by>
+    <finalised_date>2011-10-11 19:26:43</finalised_date>
+    <official_title/>
+    <system_id>346eef5b-41e0-433c-80d1-ae35cbe1f867</system_id>
+    <title>File7</title>
+    <file_class_id/>
+    <referenceParentFile_pk_file_id/>
+    <file_series_id>1</file_series_id>
+    <file_storage_location_id/>
+   </saksmappe>
+   <saksmappe>
+    <pk_file_id>11</pk_file_id>
+    <created_by>system</created_by>
+    <created_date>2011-10-11 18:53:41</created_date>
+    <description></description>
+    <document_medium></document_medium>
+    <file_id/>
+    <finalised_by>system</finalised_by>
+    <finalised_date>2011-10-11 19:26:43</finalised_date>
+    <official_title/>
+    <system_id>d36b1b18-f963-4092-bf13-f45b58bc32e2</system_id>
+    <title>File12</title>
+    <file_class_id/>
+    <referenceParentFile_pk_file_id/>
+    <file_series_id>1</file_series_id>
+    <file_storage_location_id/>
+   </saksmappe>
+   <saksmappe>
+    <pk_file_id>12</pk_file_id>
+    <created_by>system</created_by>
+    <created_date>2011-10-11 17:34:16</created_date>
+    <description></description>
+    <document_medium></document_medium>
+    <file_id/>
+    <finalised_by>system</finalised_by>
+    <finalised_date>2011-10-11 19:26:44</finalised_date>
+    <official_title/>
+    <system_id>cd69db61-5929-45de-ad63-513b55bc56fe</system_id>
+    <title>File8</title>
+    <file_class_id/>
+    <referenceParentFile_pk_file_id/>
+    <file_series_id>1</file_series_id>
+    <file_storage_location_id/>
+   </saksmappe>
+  </arkivdel>
+ </arkiv>
+</uttrekk>

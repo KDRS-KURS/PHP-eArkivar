@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uttrekk>
+ <arkiv>
+  <pk_fonds_id>1</pk_fonds_id>
+  <created_by>system</created_by>
+  <created_date>2011-10-11 17:32:44</created_date>
+  <description>Subfonds5</description>
+  <document_medium>Elektronisk arkiv</document_medium>
+  <finalised_by>system</finalised_by>
+  <finalised_date>2011-10-11 19:26:36</finalised_date>
+  <fonds_status>Avsluttet</fonds_status>
+  <system_id>29713769-edf4-46f5-be47-51a0167fbfeb</system_id>
+  <title>Subfonds5</title>
+  <referenceParentFonds_pk_fonds_id/>
+  <arkivdel>
+   <pk_series_id>1</pk_series_id>
+   <created_by>system</created_by>
+   <created_date>2011-10-11 17:33:18</created_date>
+   <description>2010-2011</description>
+   <document_medium>Elektronisk arkiv</document_medium>
+   <finalised_by>system</finalised_by>
+   <finalised_date>2011-10-11 19:26:36</finalised_date>
+   <series_end_date/>
+   <series_start_date/>
+   <series_status>Avsluttet periode</series_status>
+   <system_id>fe14ef56-b315-4569-9eda-d9c86404bbfe</system_id>
+   <title>2010-2011</title>
+   <series_classification_system_id/>
+   <series_fonds_id>1</series_fonds_id>
+   <referencePrecursor_pk_series_id/>
+   <saksmappe>
+    <pk_file_id>1</pk_file_id>
+    <created_by>system</created_by>
+    <created_date>2011-10-11 17:34:29</created_date>
+    <description></description>
+    <document_medium></document_medium>
+    <file_id/>
+    <finalised_by>system</finalised_by>
+    <finalised_date>2011-10-11 19:26:36</finalised_date>
+    <official_title/>
+    <system_id>7fdc5a5d-2874-4d34-9692-303d631961d2</system_id>
+    <title>File10</title>
+    <file_class_id/>
+    <referenceParentFile_pk_file_id/>
+    <file_series_id>1</file_series_id>
+    <file_storage_location_id/>
+   </saksmappe>
+   <saksmappe>
+    <pk_file_id>2</pk_file_id>
+    <created_by>system</created_by>
+    <created_date>2011-10-11 17:33:29</created_date>
+    <description></description>
+    <document_medium></document_medium>
+    <file_id/>
+    <finalised_by>system</finalised_by>
+    <finalised_date>2011-10-11 19:26:36</finalised_date>
+    <official_title/>
+    <system_id>b5638e85-f26c-4a60-bb16-abc74d3b9512</system_id>
+    <title>File1</title>
+    <file_class_id/>
+    <referenceParentFile_pk_file_id/>
+    <file_series_id>1</file_series_id>
+    <file_storage_location_id/>
+   </saksmappe>
+  </arkivdel>
+ </arkiv>
+</uttrekk>

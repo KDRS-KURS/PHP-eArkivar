@@ -4,7 +4,10 @@
 
 	// Parametre for XML
 	include_once '92_xml-info.inc.php';	// xml-filer parametre i egen fil
-
+	
+	// Generelle parametre
+	$filnavn = $xmlDomFilnavnUtTest;
+	
 	print 'Start XML DOM lagre fil' . PHP_EOL;
 
 	$dom = new DOMDocument('1.0', 'UTF-8');
@@ -49,8 +52,8 @@
 	
 	
 	$dom->formatOutput = true;
-	$dom->save($xmlDomFilnavnUt);
+	$dom->save($filnavn);
 	
-	print 'Slutt PHP: XML DOM ' . $xmlDomFilnavnUt . PHP_EOL;
+	print 'Slutt PHP: XML DOM ' . $filnavn . PHP_EOL;
 	
 ?>
