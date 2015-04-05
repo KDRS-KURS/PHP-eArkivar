@@ -14,8 +14,8 @@
 	// Sax = Simple API for Xml
 	$xmlSaxFilnavnUtTest = 'uttrekk-test-sax.xml';	// standardverdi = 'uttrekk-test-Sax.xml'
 	$xmlSaxFilnavnUtSql = 'uttrekk-sql-sax.xml';	// standardverdi = 'uttrekk-sql-Sax.xml'
-	$xmlSaxFilnavnUtSql2 = 'uttrekk-sql-sax_2.xml';	// standardverdi = 'uttrekk-sql-Sax_2.xml'
-	$xmlSaxFilnavnUtSql3 = 'uttrekk-sql-sax_3.xml';	// standardverdi = 'uttrekk-sql-Sax_2.xml'
+	$xmlSaxFilnavnUtSql_temp = 'uttrekk-sql-sax_temp.xml';	// standardverdi = 'uttrekk-sql-Sax_temp.xml'
+	$xmlSaxFilnavnUtSql_temp2 = 'uttrekk-sql-sax_temp2.xml';	// standardverdi = 'uttrekk-sql-Sax_temp2.xml'
 	
 	// xml Header
 	$xmlHeader = '<?xml version="1.0" encoding="UTF-8"?>';

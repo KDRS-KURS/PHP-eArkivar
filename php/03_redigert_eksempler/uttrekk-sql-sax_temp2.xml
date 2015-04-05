@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uttrekk>
+<uttrekk xml_write_metode="XML SAX XMLWriter" xml_timestamp="2015-04-05T23:34:18+02:00" php_script="08_db2xml_sax_temp2.php">
  <arkiv>
   <pk_fonds_id>1</pk_fonds_id>
   <created_by>system</created_by>

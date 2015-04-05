@@ -9,7 +9,20 @@
 	include_once '92_xml-info.inc.php';	// xml-filer parametre i egen fil
 	
 	// Generelle parametre
+	$thisXmlMetode = 'XML HC (hardkodet)';
 	$filnavn = $xmlHcFilnavnUtTest;
+	
+	// PHP script
+	$thisPhpScript = pathinfo(__file__)['basename'];
+	
+	// Timestamp
+	$thisTimezone = 'Europe/Oslo';
+	date_default_timezone_set($thisTimezone);
+	$timeStart = time();
+	$strStartDateTime = date('Y-m-d\TH:i:sP', $timeStart);
+	
+	// PHP start
+	print 'PHP start [' . $strStartDateTime . ']' . PHP_EOL;
 	
 	// Koble til databasen;
 	$db = new mysqli($IPAdresse, $brukernavn, $passord, $databasenavn);
@@ -46,12 +59,20 @@
 	print PHP_EOL;
 	
 	// Skriv XML til fil hvis arkiv-rader finnes
-	if ($numberArkivRows > 0) {		
+	if ($numberArkivRows > 0) {
+		print 'Start ' . $thisXmlMetode . ' lagre fil' . PHP_EOL;
+		
 		// Åpne xml-fil for skriving
 		$arkivFil = fopen($filnavn, 'w');
 		
 		fwrite($arkivFil, '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL);
-		fwrite($arkivFil, '<uttrekk>' .  PHP_EOL);
+		
+		$tmpStr = '<uttrekk';
+		$tmpStr .= ' xml_write_metode="' . $thisXmlMetode . '"';
+		$tmpStr .= ' xml_timestamp="' . $strStartDateTime . '"';
+		$tmpStr .= ' php_script="' . $thisPhpScript . '"';
+		$tmpStr .= '>' .  PHP_EOL;
+		fwrite($arkivFil, $tmpStr);
 		
 		while($rowArkiv = $resultArkiv->fetch_assoc()){
 			fwrite( $arkivFil, "\t" . '<arkiv>' .  PHP_EOL);
@@ -64,14 +85,20 @@
 		}
 		
 		fwrite( $arkivFil, '</uttrekk>' .  PHP_EOL);
-		print 'Lagret xml til fil ' . $filnavn . PHP_EOL;
+		print $thisXmlMetode . ' lagre fil [' . $filnavn . ']' . PHP_EOL;
 		
 	} else {
-		print 'IKKE lagret xml til fil fordi ingen arkiv-rader funnet i database-tabell' . PHP_EOL;
+		print 'IKKE lagret ' . $thisXmlMetode . ' til fil fordi ingen arkiv-rader funnet i database-tabell' . PHP_EOL;
 	}
 	
 	$resultArkiv->free();	
 	$db->close();
+	
+	// PHP slutt
+	$timeEnd = time();
+	$strEndDateTime = date('Y-m-d\TH:i:sP', $timeEnd);
+	
+	print 'PHP slutt [' . $strEndDateTime . ']' . PHP_EOL;
 
 ?>
 

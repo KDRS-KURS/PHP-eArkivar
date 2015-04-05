@@ -1,6 +1,6 @@
 <?php
 
-	// Kode for SQL-spørring mot database og skrive XML til fil
+	// Kode for SQL-spørring mot database og XML SAX skrive til fil (XMLWriter)
 	
 	// Parametre for tilkobling til database
 	include_once '91_db-info.inc.php';	// database parametre i egen fil
@@ -8,9 +8,12 @@
 	// Parametre for XML
 	include_once '92_xml-info.inc.php';	// xml-filer parametre i egen fil
 	
+	// Koble til databasen;
+	$db = new mysqli($IPAdresse, $brukernavn, $passord, $databasenavn);
+	
 	// Generelle parametre
-	$thisXmlMetode = 'XML HC (hardkodet)';
-	$filnavn = $xmlHcFilnavnUtTest;
+	$thisXmlMetode = 'XML SAX XMLWriter';
+	$filnavn = $xmlSaxFilnavnUtSql_temp;
 	
 	// PHP script
 	$thisPhpScript = pathinfo(__file__)['basename'];
@@ -24,9 +27,6 @@
 	// PHP start
 	print 'PHP start [' . $strStartDateTime . ']' . PHP_EOL;
 	
-	// Koble til databasen;
-	$db = new mysqli($IPAdresse, $brukernavn, $passord, $databasenavn);
-
 	print PHP_EOL;
 	print 'Prøver å opprette kobling til ' . PHP_EOL;
 	print 'maskin (' . $IPAdresse . '), ' . PHP_EOL;
@@ -41,7 +41,7 @@
 		print 'Koblet til database' . PHP_EOL;
 	}
 	print PHP_EOL;
-	
+
 	// Nivå 1 Arkiv
 	// SQL-spørring: Les alle rader fra tabell i variabel $tabellArkiv
 	$sqlArkiv = 'SELECT * FROM ' . $tabellArkiv;
@@ -59,44 +59,42 @@
 	print PHP_EOL;
 	
 	// Skriv XML til fil hvis arkiv-rader finnes
-	if ($numberArkivRows > 0) {
-		print 'Start ' . $thisXmlMetode . ' lagre fil' . PHP_EOL;
-		
-		// Åpne xml-fil for skriving
-		$arkivFil = fopen($filnavn, 'w');
-		
-		fwrite($arkivFil, $xmlHeader . PHP_EOL);
-		
-		$tmpStr = '<uttrekk';
-		$tmpStr .= ' xml_write_metode="' . $thisXmlMetode . '"';
-		$tmpStr .= ' xml_timestamp="' . $strStartDateTime . '"';
-		$tmpStr .= ' php_script="' . $thisPhpScript . '"';
-		$tmpStr .= '>' .  PHP_EOL;
-		fwrite($arkivFil, $tmpStr);
+	if ($numberArkivRows > 0) {	
+		// Ny instans SAX XMLWriter
+		$addmlSAX = new XMLWriter();
+		$addmlSAX->OpenURI($filnavn);
+		//$addmlSAX->OpenURI('php://output');
+		$addmlSAX->startDocument('1.0','UTF-8');
+		$addmlSAX->setIndent(true);
+
+		// XML root-element <uttrekk> med atributter
+		$addmlSAX->startElement('uttrekk');
+		$addmlSAX->writeAttribute('xml_write_metode', $thisXmlMetode);
+		$addmlSAX->writeAttribute('xml_timestamp', $strStartDateTime);
+		$addmlSAX->writeAttribute('php_script', $thisPhpScript);
 
 		while($rowArkiv = $resultArkiv->fetch_assoc()){
-			fwrite( $arkivFil, "\t" . '<arkiv>' .  PHP_EOL);
+			// XML element <arkiv>
+			$addmlSAX->startElement('arkiv');
 			foreach ($rowArkiv as $rowKey => $rowValue) {
-				fwrite( $arkivFil, "\t\t" . '<' . $rowKey . '>' . $rowValue . '</' . $rowKey . '>' . PHP_EOL);
+				$addmlSAX->writeElement($rowKey, $rowValue);
 			}			
-			fwrite( $arkivFil, "\t" . '</arkiv>' .  PHP_EOL);
+			$addmlSAX->endElement();	// </arkiv>
 		}
 		
-		fwrite( $arkivFil, '</uttrekk>' .  PHP_EOL);
+		$addmlSAX->endElement();	// </uttrekk>
+		$addmlSAX->endDocument();
+		$addmlSAX->flush();
+		
 		print $thisXmlMetode . ' lagre fil [' . $filnavn . ']' . PHP_EOL;
 		
 	} else {
 		print 'IKKE lagret ' . $thisXmlMetode . ' til fil fordi ingen arkiv-rader funnet i database-tabell' . PHP_EOL;
 	}
 	
-	$resultArkiv->free();	
-	$db->close();
-	
 	// PHP slutt
 	$timeEnd = time();
 	$strEndDateTime = date('Y-m-d\TH:i:sP', $timeEnd);
-	
 	print 'PHP slutt [' . $strEndDateTime . ']' . PHP_EOL;
-
+		
 ?>
-

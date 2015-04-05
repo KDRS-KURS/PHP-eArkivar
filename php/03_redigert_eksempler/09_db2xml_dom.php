@@ -1,6 +1,7 @@
 <?php
 
-	// Kode for SQL-spørring mot database og skrive XML til fil
+	// Kode for SQL-spørring mot database og XML DOM skrive til fil
+	// Alle 3 nivåer Arkiv, Arkivdel, Saksmappe med opsjoner
 	
 	// Parametre for tilkobling til database
 	include_once '91_db-info.inc.php';	// database parametre i egen fil
@@ -12,10 +13,23 @@
 	$db = new mysqli($IPAdresse, $brukernavn, $passord, $databasenavn);
 	
 	// Generelle parametre
-	$filnavn = $xmlSaxFilnavnUtSql3;
+	$thisXmlMetode = 'XML DOM';
+	$filnavn = $xmlDomFilnavnUtSql;
 	$countArkiv = 0;
 	$countArkivdel = 0;
 	$countSaksmappe = 0;
+	
+	// PHP script
+	$thisPhpScript = pathinfo(__file__)['basename'];
+	
+	// Timestamp
+	$thisTimezone = 'Europe/Oslo';
+	date_default_timezone_set($thisTimezone);
+	$timeStart = time();
+	$strStartDateTime = date('Y-m-d\TH:i:sP', $timeStart);
+	
+	// PHP start
+	print 'PHP start [' . $strStartDateTime . ']' . PHP_EOL;
 	
 	print PHP_EOL;
 	print 'Prøver å opprette kobling til ' . PHP_EOL;
@@ -53,23 +67,37 @@
 	
 	// Skriv XML til fil hvis arkiv-rader finnes
 	if ($numberArkivRows > 0) {
-		// Ny instans SAX XMLWriter
-		$addmlSAX = new XMLWriter();
-		$addmlSAX->OpenURI($filnavn);
-		//$addmlSAX->OpenURI('php://output');
-		$addmlSAX->startDocument('1.0','UTF-8');
-		$addmlSAX->setIndent(true);
-
-		$addmlSAX->startElement('uttrekk');
-
+		// Ny instans DOM XML-dokument
+		$addmlDOM = new DOMDocument('1.0', 'UTF-8');
+		
+		// lager <uttrekk> ... </uttrekk>
+		$uttrekkRoot = $addmlDOM->createElement('uttrekk');
+		$addmlDOM->appendChild($uttrekkRoot);
+		
+		// legger til 3 atributter til hovedelement <uttrekk>
+		$uttrekkRoot->setAttribute('xml_write_metode', $thisXmlMetode);
+		$uttrekkRoot->setAttribute('xml_timestamp', $strStartDateTime);
+		$uttrekkRoot->setAttribute('php_script', $thisPhpScript);
+		
 		while($rowArkiv = $resultArkiv->fetch_assoc()){
 			$countArkiv += 1;
 			
-			// Ta med <arkiv> elementer hvis aktivert
+			// Ta med XML element <arkiv> hvis aktivert
 			if ($bolXmlArkiv) {
-				$addmlSAX->startElement('arkiv');
+				// lager <arkiv> ... </arkiv>
+				$arkivElement = $addmlDOM->createElement('arkiv');
+				$uttrekkRoot->appendChild($arkivElement);
+				
+				// Arkiv childs: lager <rowKey>rowValue</rowKey>
 				foreach ($rowArkiv as $rowKey => $rowValue) {
-					$addmlSAX->writeElement($rowKey, $rowValue);
+					// nytt Element = DOMdoc->createElement
+					$arkivChild = $addmlDOM->createElement($rowKey);	
+					// nytt Element Text = DOMdoc->createTextNode
+					$arkivChildText = $addmlDOM->createTextNode($rowValue);
+					// nytt Element -> tilknytt -> nytt Element Text
+					$arkivChild->appendChild($arkivChildText);
+					// parent Element -> tilknytt nytt Element
+					$arkivElement->appendChild($arkivChild);
 				}
 			}
 			
@@ -84,7 +112,7 @@
 			// Nivå 2 Arkivdel
 			print 'II: Arkivdel';
 			print PHP_EOL;
-			$countArkivdel = 0;
+			$countArkivdel = 0;	// Resette teller ved start av hvert Arkiv
 			
 			// SQL-spørring Arkivdel: Les alle rader fra tabell i variabel $tabellArkivdel
 			$sqlArkivdel = 'SELECT * FROM ' . $tabellArkivdel . ' WHERE ' . $keyArkivdelArkiv . ' = ' . "'" .
@@ -105,12 +133,22 @@
 			while($rowArkivdel = $resultArkivdel->fetch_assoc()){
 				$countArkivdel += 1;
 				
-				// Ta med <arkivdel> elementer hvis aktivert
+				// Ta med XML element <arkivdel> hvis aktivert
 				if ($bolXmlArkivdel) {
-					// XML SAX (XMLWriter)
-					$addmlSAX->startElement('arkivdel');
+					// lager <arkivdel> ... </arkivdel>
+					$arkivdelElement = $addmlDOM->createElement('arkivel');
+					$arkivElement->appendChild($arkivdelElement);
+										
+					// Arkivdel childs: lager <rowKey>rowValue</rowKey>
 					foreach ($rowArkivdel as $rowKey => $rowValue) {
-						$addmlSAX->writeElement($rowKey, $rowValue);
+						// nytt Element = DOMdoc->createElement
+						$arkivdelChild = $addmlDOM->createElement($rowKey);	
+						// nytt Element Text = DOMdoc->createTextNode
+						$arkivdelChildText = $addmlDOM->createTextNode($rowValue);
+						// nytt Element -> tilknytt -> nytt Element Text
+						$arkivdelChild->appendChild($arkivdelChildText);
+						// parent Element -> tilknytt nytt Element
+						$arkivdelElement->appendChild($arkivdelChild);
 					}
 				}
 				
@@ -125,7 +163,7 @@
 				// Nivå 3 Saksmappe
 				print 'III: Saksmappe';
 				print PHP_EOL;
-				$countSaksmappe = 0;
+				$countSaksmappe = 0;	// Resette teller ved start av hver Arkivdel
 				
 				// SQL-spørring Saksmappe: Les alle rader fra tabell i variabel $tabellSaksmappe
 				$sqlSaksmappe = 'SELECT * FROM ' . $tabellSaksmappe . ' WHERE ' . $keySaksmappeArkivdel . ' = ' . "'" .
@@ -145,15 +183,24 @@
 				while($rowSaksmappe = $resultSaksmappe->fetch_assoc()){
 					$countSaksmappe += 1;
 					
-					// XML <saksmappe> elementer hvis aktivert
+					// Ta med XML element <saksmappe> hvis aktivert
 					if ($bolXmlSaksmappe) {
 						if ((0 == $numXmlSaksmappeLimit) OR ($countSaksmappe <= $numXmlSaksmappeLimit)) {					
-							// XML SAX (XMLWriter)
-							$addmlSAX->startElement('saksmappe');
+							// lager <saksmappe> ... </saksmappe>
+							$saksmappeElement = $addmlDOM->createElement('saksmappe');
+							$arkivdelElement->appendChild($saksmappeElement);
+										
+							// Saksmappe childs: lager <rowKey>rowValue</rowKey>
 							foreach ($rowSaksmappe as $rowKey => $rowValue) {
-								$addmlSAX->writeElement($rowKey, $rowValue);
+								// nytt Element = DOMdoc->createElement
+								$saksmappeChild = $addmlDOM->createElement($rowKey);	
+								// nytt Element Text = DOMdoc->createTextNode
+								$saksmappeChildText = $addmlDOM->createTextNode($rowValue);
+								// nytt Element -> tilknytt -> nytt Element Text
+								$saksmappeChild->appendChild($saksmappeChildText);
+								// parent Element -> tilknytt nytt Element
+								$saksmappeElement->appendChild($saksmappeChild);
 							}
-							$addmlSAX->endElement();	// </saksmappe>
 						}
 					}	// XML <saksmappe>
 					
@@ -173,42 +220,37 @@
 				// Saksmappe teller print konsoll
 				if ($bolXmlVisSaksmappe) {
 					if ((0 == $numXmlVisSaksmappeLimit) OR ($countSaksmappe <= $numXmlVisSaksmappeLimit)) {
-						print 'Alle ' . $countSaksmappe . ' Saksmapper til print konsoll';
-						print PHP_EOL;
+						print 'Alle ' . $countSaksmappe . ' Saksmapper til print konsoll' . PHP_EOL;
 					} else {
-						print 'Stopper etter ' . $numXmlVisSaksmappeLimit . ' Saksmapper til print konsoll';
-						print PHP_EOL;
+						print 'Stopper etter ' . $numXmlVisSaksmappeLimit . ' Saksmapper til print konsoll' . PHP_EOL;
 					}
 				}
 				
 				// Saksmappe teller XML
 				if ($bolXmlSaksmappe) {
 					if ((0 == $numXmlSaksmappeLimit) OR ($countSaksmappe <= $numXmlSaksmappeLimit)) {
-						print 'Alle ' . $countSaksmappe . ' Saksmapper til XML';
+						print 'Alle ' . $countSaksmappe . ' Saksmapper til XML' . PHP_EOL;
 						print PHP_EOL;
 					} else {
-						print 'Stopper etter ' . $numXmlVisSaksmappeLimit . ' Saksmapper til XML';
+						print 'Stopper etter ' . $numXmlVisSaksmappeLimit . ' Saksmapper til XML' . PHP_EOL;
 						print PHP_EOL;
 					}
 				}
-				
-				if ($bolXmlArkivdel) {
-					$addmlSAX->endElement();	// </arkivdel>
-				}
 			}	// end while Arkivdel
-			if ($bolXmlArkiv) {
-				$addmlSAX->endElement();	// </arkiv>
-			}
 		}	// end while Arkiv
 		
-		$addmlSAX->endElement();	// </uttrekk>
-		$addmlSAX->endDocument();
-		$addmlSAX->flush();
+		$addmlDOM->formatOutput = true;
+		$addmlDOM->save($filnavn);
 		
-		print 'Lagret xml til fil ' . $filnavn . PHP_EOL;
+		print $thisXmlMetode . ' lagre fil [' . $filnavn . ']' . PHP_EOL;
 		
 	} else {
-		print 'IKKE lagret xml til fil fordi ingen arkiv-rader funnet i database-tabell' . PHP_EOL;
+		print 'IKKE lagret ' . $thisXmlMetode . ' til fil fordi ingen arkiv-rader funnet i database-tabell' . PHP_EOL;
 	}
+	
+	// PHP slutt
+	$timeEnd = time();
+	$strEndDateTime = date('Y-m-d\TH:i:sP', $timeEnd);
+	print 'PHP slutt [' . $strEndDateTime . ']' . PHP_EOL;
 		
 ?>

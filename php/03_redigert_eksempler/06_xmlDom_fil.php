@@ -6,15 +6,32 @@
 	include_once '92_xml-info.inc.php';	// xml-filer parametre i egen fil
 	
 	// Generelle parametre
+	$thisXmlMetode = 'XML DOM';
 	$filnavn = $xmlDomFilnavnUtTest;
 	
-	print 'Start XML DOM lagre fil' . PHP_EOL;
-
+	// PHP script
+	$thisPhpScript = pathinfo(__file__)['basename'];
+	
+	// Timestamp
+	$thisTimezone = 'Europe/Oslo';
+	date_default_timezone_set($thisTimezone);
+	$timeStart = time();
+	$strStartDateTime = date('Y-m-d\TH:i:sP', $timeStart);
+	
+	// PHP start
+	print 'PHP start [' . $strStartDateTime . ']' . PHP_EOL;
+	
+	// Ny instans DOM XML-dokument
 	$dom = new DOMDocument('1.0', 'UTF-8');
 	
 	// lager <uttrekk> ... </uttrekk>
 	$uttrekkRoot = $dom->createElement('uttrekk');
 	$dom->appendChild($uttrekkRoot);
+	
+	// legger til 3 atributter til hovedelement <uttrekk>
+	$uttrekkRoot->setAttribute('xml_write_metode', $thisXmlMetode);
+	$uttrekkRoot->setAttribute('xml_timestamp', $strStartDateTime);
+	$uttrekkRoot->setAttribute('php_script', $thisPhpScript);
 	
 	// Arkiv 1
 	// lager <arkiv> ... </arkiv>
@@ -50,10 +67,14 @@
 	$beskrivelseElement->appendChild($beskrivelseText);
 	$arkivElement->appendChild($beskrivelseElement);
 	
-	
 	$dom->formatOutput = true;
 	$dom->save($filnavn);
 	
-	print 'Slutt PHP: XML DOM ' . $filnavn . PHP_EOL;
+	// PHP slutt
+	$timeEnd = time();
+	$strEndDateTime = date('Y-m-d\TH:i:sP', $timeEnd);
+	
+	print $thisXmlMetode . ' lagre fil [' . $filnavn . ']' . PHP_EOL;
+	print 'PHP slutt [' . $strEndDateTime . ']' . PHP_EOL;
 	
 ?>

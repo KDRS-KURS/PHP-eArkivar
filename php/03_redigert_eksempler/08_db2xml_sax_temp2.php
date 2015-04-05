@@ -1,8 +1,8 @@
 <?php
 
-	// Kode for SQL-spørring mot database og skrive XML til fil
+	// Kode for SQL-spørring mot database og XML SAX skrive til fil (XMLWriter)
 	// MERK: Mellomversjon som arver visning til skjerm i 3 modi fra print konsoll versjon
-	// ERSTATTES: av 08_db2xml_sax_3.php som forenkler print konsoll og presiserer xml output
+	// ERSTATTES: av 08_db2xml_sax.php som forenkler print konsoll og presiserer xml output
 	
 	// Parametre for tilkobling til database
 	include_once '91_db-info.inc.php';	// database parametre i egen fil
@@ -14,10 +14,23 @@
 	$db = new mysqli($IPAdresse, $brukernavn, $passord, $databasenavn);
 	
 	// Generelle parametre
-	$filnavn = $xmlSaxFilnavnUtSql2;
+	$thisXmlMetode = 'XML SAX XMLWriter';
+	$filnavn = $xmlSaxFilnavnUtSql_temp2;
 	$countArkiv = 0;
 	$countArkivdel = 0;
 	$countSaksmappe = 0;
+	
+	// PHP script
+	$thisPhpScript = pathinfo(__file__)['basename'];
+	
+	// Timestamp
+	$thisTimezone = 'Europe/Oslo';
+	date_default_timezone_set($thisTimezone);
+	$timeStart = time();
+	$strStartDateTime = date('Y-m-d\TH:i:sP', $timeStart);
+	
+	// PHP start
+	print 'PHP start [' . $strStartDateTime . ']' . PHP_EOL;
 	
 	print PHP_EOL;
 	print 'Prøver å opprette kobling til ' . PHP_EOL;
@@ -61,13 +74,17 @@
 		//$addmlSAX->OpenURI('php://output');
 		$addmlSAX->startDocument('1.0','UTF-8');
 		$addmlSAX->setIndent(true);
-
+		
+		// XML root-element <uttrekk> med atributter
 		$addmlSAX->startElement('uttrekk');
+		$addmlSAX->writeAttribute('xml_write_metode', $thisXmlMetode);
+		$addmlSAX->writeAttribute('xml_timestamp', $strStartDateTime);
+		$addmlSAX->writeAttribute('php_script', $thisPhpScript);
 
 		while($rowArkiv = $resultArkiv->fetch_assoc()){
 			$countArkiv += 1;
 			
-			// Ta med <arkiv> elementer hvis aktivert
+			// Ta med XML element <arkiv> hvis aktivert
 			if ($bolVisArkiv) {
 				$addmlSAX->startElement('arkiv');
 				foreach ($rowArkiv as $rowKey => $rowValue) {
@@ -78,6 +95,7 @@
 			// Nivå 2 Arkivdel
 			print 'II: Arkivdel';
 			print PHP_EOL;
+			$countArkivdel = 0;	// Resette teller ved start av hvert Arkiv
 			
 			// SQL-spørring Arkivdel: Les alle rader fra tabell i variabel $tabellArkivdel
 			$sqlArkivdel = 'SELECT * FROM ' . $tabellArkivdel . ' WHERE ' . $keyArkivdelArkiv . ' = ' . "'" .
@@ -98,7 +116,7 @@
 			while($rowArkivdel = $resultArkivdel->fetch_assoc()){
 				$countArkivdel += 1;
 				
-				// Ta med <arkivdel> elementer hvis aktivert
+				// Ta med XML element <arkivdel> hvis aktivert
 				if ($bolVisArkivdel) {
 					// XML SAX (XMLWriter)
 					$addmlSAX->startElement('arkivdel');
@@ -132,6 +150,7 @@
 				// Nivå 3 Saksmappe
 				print 'III: Saksmappe';
 				print PHP_EOL;
+				$countSaksmappe = 0;	// Resette teller ved start av hver Arkivdel
 				
 				// SQL-spørring Saksmappe: Les alle rader fra tabell i variabel $tabellSaksmappe
 				$sqlSaksmappe = 'SELECT * FROM ' . $tabellSaksmappe . ' WHERE ' . $keySaksmappeArkivdel . ' = ' . "'" .
@@ -162,7 +181,7 @@
 						}
 					// Alle Saksmappene i while-løkke
 					} else {
-						// Ta med <saksmappe> elementer hvis aktivert
+						// Ta med XML element <saksmappe> hvis aktivert
 						if ($bolVisSaksmappe) {
 							// XML SAX (XMLWriter)
 							$addmlSAX->startElement('saksmappe');
@@ -201,14 +220,14 @@
 				// Saksmappe teller
 				if (($countSaksmappe > $numSaksmappeLimit) AND ($numSaksmappeLimit > 0)) {
 					if ($bolBreakSaksmappeLimit) {
-						print 'Stopper etter ' . ($countSaksmappe-1) . ' Saksmapper';
+						print 'Stopper etter ' . ($countSaksmappe-1) . ' Saksmapper' . PHP_EOL;
 						print PHP_EOL;
 					} else {
-						print 'Stopper etter ' . $numSaksmappeLimit . ' Saksmapper av totalt ' . $countSaksmappe;
+						print 'Stopper etter ' . $numSaksmappeLimit . ' Saksmapper av totalt ' . $countSaksmappe . PHP_EOL;
 						print PHP_EOL;
 					}
 				} else {
-					print 'Totalt ' . $countSaksmappe . ' Saksmapper';
+					print 'Totalt ' . $countSaksmappe . ' Saksmapper' . PHP_EOL;
 					print PHP_EOL;
 				}
 				
@@ -225,10 +244,15 @@
 		$addmlSAX->endDocument();
 		$addmlSAX->flush();
 		
-		print 'Lagret xml til fil ' . $filnavn . PHP_EOL;
+		print $thisXmlMetode . ' lagre fil [' . $filnavn . ']' . PHP_EOL;
 		
 	} else {
-		print 'IKKE lagret xml til fil fordi ingen arkiv-rader funnet i database-tabell' . PHP_EOL;
+		print 'IKKE lagret ' . $thisXmlMetode . ' til fil fordi ingen arkiv-rader funnet i database-tabell' . PHP_EOL;
 	}
+	
+	// PHP slutt
+	$timeEnd = time();
+	$strEndDateTime = date('Y-m-d\TH:i:sP', $timeEnd);
+	print 'PHP slutt [' . $strEndDateTime . ']' . PHP_EOL;
 		
 ?>
