@@ -1,14 +1,32 @@
 <?php
 
 	// Kode for SQL-spørring mot database
+	// Oppslag mot parameterfil for tabellnavn for arkiv, arkivdel og saksmappe
+	// Automatisk lest og vist alle felter i tabellene, parameter for antall viste mapper
 	
 	// Parametre for tilkobling til database
 	include_once '91_db-info.inc.php';	// database parametre i egen fil
 	
-	// Variables
+	// Generelle parametre
+	$thisPhpInfo = 'DB SQL: Arkiv, Arkivdel, Saksmappe (auto)';
 	$countArkiv = 0;
 	$countArkivdel = 0;
 	$countSaksmappe = 0;
+	
+	// PHP script
+	$thisPhpScript = pathinfo(__file__)['basename'];
+	
+	// Timestamp
+	$thisTimezone = 'Europe/Oslo';
+	date_default_timezone_set($thisTimezone);
+	$timeStart = time();
+	$strStartDateTime = date('Y-m-d\TH:i:sP', $timeStart);
+	
+	// PHP start
+	print PHP_EOL;
+	print 'PHP start [' . $strStartDateTime . ']' . PHP_EOL;
+	print 'PHP metode [' . $thisPhpInfo . ']' . PHP_EOL;
+	print 'PHP filnavn [' . $thisPhpScript . ']' . PHP_EOL;
 	
 	// Koble til databasen;
 	$db = new mysqli($IPAdresse, $brukernavn, $passord, $databasenavn);
@@ -196,11 +214,17 @@
 			
 		}	// end while Arkivdel
 	}	// end while Arkiv
+	print PHP_EOL;
 	
 	// Lukke objekter
 	if (isset($resultArkiv)) { $resultArkiv->free(); }
 	if (isset($resultArkivdel)) { $resultArkivdel->free(); }
 	if (isset($resultSaksmappe)) { $resultSaksmappe->free(); }
-	$db->close();	
+	$db->close();
+	
+	// PHP slutt
+	$timeEnd = time();
+	$strEndDateTime = date('Y-m-d\TH:i:sP', $timeEnd);
+	print 'PHP slutt [' . $strEndDateTime . ']' . PHP_EOL;
 	
 ?>

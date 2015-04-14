@@ -1,6 +1,6 @@
 <?php
 
-	// Kode for SQL-spørring mot database og XML SAX skrive til fil (XMLWriter)
+	// Kode for SQL-spørring mot database og SAX XMLWriter skrive til fil
 	// MERK: Mellomversjon som arver visning til skjerm i 3 modi fra print konsoll versjon
 	// ERSTATTES: av 08_db2xml_sax.php som forenkler print konsoll og presiserer xml output
 	
@@ -14,7 +14,7 @@
 	$db = new mysqli($IPAdresse, $brukernavn, $passord, $databasenavn);
 	
 	// Generelle parametre
-	$thisXmlMetode = 'XML SAX XMLWriter';
+	$thisPhpInfo = 'SAX XMLWriter temp2';
 	$filnavn = $xmlSaxFilnavnUtSql_temp2;
 	$countArkiv = 0;
 	$countArkivdel = 0;
@@ -30,7 +30,10 @@
 	$strStartDateTime = date('Y-m-d\TH:i:sP', $timeStart);
 	
 	// PHP start
+	print PHP_EOL;
 	print 'PHP start [' . $strStartDateTime . ']' . PHP_EOL;
+	print 'PHP metode [' . $thisPhpInfo . ']' . PHP_EOL;
+	print 'PHP filnavn [' . $thisPhpScript . ']' . PHP_EOL;
 	
 	print PHP_EOL;
 	print 'Prøver å opprette kobling til ' . PHP_EOL;
@@ -77,7 +80,7 @@
 		
 		// XML root-element <uttrekk> med atributter
 		$addmlSAX->startElement('uttrekk');
-		$addmlSAX->writeAttribute('xml_write_metode', $thisXmlMetode);
+		$addmlSAX->writeAttribute('xml_write_metode', $thisPhpInfo);
 		$addmlSAX->writeAttribute('xml_timestamp', $strStartDateTime);
 		$addmlSAX->writeAttribute('php_script', $thisPhpScript);
 
@@ -244,10 +247,10 @@
 		$addmlSAX->endDocument();
 		$addmlSAX->flush();
 		
-		print $thisXmlMetode . ' lagre fil [' . $filnavn . ']' . PHP_EOL;
+		print $thisPhpInfo . ' lagre fil [' . $filnavn . ']' . PHP_EOL;
 		
 	} else {
-		print 'IKKE lagret ' . $thisXmlMetode . ' til fil fordi ingen arkiv-rader funnet i database-tabell' . PHP_EOL;
+		print 'IKKE lagret ' . $thisPhpInfo . ' til fil fordi ingen arkiv-rader funnet i database-tabell' . PHP_EOL;
 	}
 	
 	// PHP slutt

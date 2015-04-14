@@ -1,6 +1,8 @@
 <?php
 
-	// Kode for SQL-spørring mot database og skrive XML til fil
+	// Kode for SQL-spørring mot database og skrive XML fra arkiv-tabell til fil
+	// XML hardkodet skrivemetode (dvs. bruker ikke xml-bibliotek for å lage XML)
+	// Hardkodet tabelnavn og xml-elementer
 	
 	// Parametre for tilkobling til database
 	include_once '91_db-info.inc.php';	// database parametre i egen fil
@@ -9,7 +11,7 @@
 	include_once '92_xml-info.inc.php';	// xml-filer parametre i egen fil
 	
 	// Generelle parametre
-	$thisXmlMetode = 'XML HC (hardkodet)';
+	$thisPhpInfo = 'XML HC (hardkodet), db arkiv til xml (manuelt)';
 	$filnavn = $xmlHcFilnavnUtTest;
 	
 	// PHP script
@@ -22,7 +24,9 @@
 	$strStartDateTime = date('Y-m-d\TH:i:sP', $timeStart);
 	
 	// PHP start
+	print PHP_EOL;
 	print 'PHP start [' . $strStartDateTime . ']' . PHP_EOL;
+	print 'PHP metode [' . $thisPhpInfo . ']' . PHP_EOL;
 	
 	// Koble til databasen;
 	$db = new mysqli($IPAdresse, $brukernavn, $passord, $databasenavn);
@@ -60,7 +64,7 @@
 	
 	// Skriv XML til fil hvis arkiv-rader finnes
 	if ($numberArkivRows > 0) {
-		print 'Start ' . $thisXmlMetode . ' lagre fil' . PHP_EOL;
+		print 'Start lagre fil' . PHP_EOL;
 		
 		// Åpne xml-fil for skriving
 		$arkivFil = fopen($filnavn, 'w');
@@ -68,7 +72,7 @@
 		fwrite($arkivFil, '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL);
 		
 		$tmpStr = '<uttrekk';
-		$tmpStr .= ' xml_write_metode="' . $thisXmlMetode . '"';
+		$tmpStr .= ' xml_write_metode="' . $thisPhpInfo . '"';
 		$tmpStr .= ' xml_timestamp="' . $strStartDateTime . '"';
 		$tmpStr .= ' php_script="' . $thisPhpScript . '"';
 		$tmpStr .= '>' .  PHP_EOL;
@@ -85,10 +89,10 @@
 		}
 		
 		fwrite( $arkivFil, '</uttrekk>' .  PHP_EOL);
-		print $thisXmlMetode . ' lagre fil [' . $filnavn . ']' . PHP_EOL;
+		print 'Lagre fil [' . $filnavn . ']' . PHP_EOL;
 		
 	} else {
-		print 'IKKE lagret ' . $thisXmlMetode . ' til fil fordi ingen arkiv-rader funnet i database-tabell' . PHP_EOL;
+		print 'IKKE lagret til fil fordi ingen arkiv-rader funnet i database-tabell' . PHP_EOL;
 	}
 	
 	$resultArkiv->free();	
@@ -98,7 +102,7 @@
 	$timeEnd = time();
 	$strEndDateTime = date('Y-m-d\TH:i:sP', $timeEnd);
 	
-	print 'PHP slutt [' . $strEndDateTime . ']' . PHP_EOL;
+	print 'PHP slutt [' . $strEndDateTime . ']';
 
 ?>
 

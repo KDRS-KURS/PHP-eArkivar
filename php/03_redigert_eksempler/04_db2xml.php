@@ -1,9 +1,29 @@
 <?php
 
 	// Kode for SQL-spørring mot database og skrive XML til skjerm
+	// Leser tabell "arkiv" fra databasen
+	// Hardkodet valgte felter og tags fra tabell "arkiv"
 	
 	// Parametre for tilkobling til database
 	include_once '91_db-info.inc.php';	// database parametre i egen fil
+	
+	// Generelle parametre
+	$thisPhpInfo = 'DB SQL to XML: Arkiv, Arkivdel, Saksmappe (manuelt)';
+	
+	// PHP script
+	$thisPhpScript = pathinfo(__file__)['basename'];
+	
+	// Timestamp
+	$thisTimezone = 'Europe/Oslo';
+	date_default_timezone_set($thisTimezone);
+	$timeStart = time();
+	$strStartDateTime = date('Y-m-d\TH:i:sP', $timeStart);
+	
+	// PHP start
+	print PHP_EOL;
+	print 'PHP start [' . $strStartDateTime . ']' . PHP_EOL;
+	print 'PHP metode [' . $thisPhpInfo . ']' . PHP_EOL;
+	print 'PHP filnavn [' . $thisPhpScript . ']' . PHP_EOL;
 	
 	// Koble til databasen;
 	$db = new mysqli($IPAdresse, $brukernavn, $passord, $databasenavn);
@@ -55,9 +75,15 @@
 		
 		print '</uttrekk>' . PHP_EOL;
 	}
+	print PHP_EOL;
 	
-	$resultArkiv->free();	
+	$resultArkiv->free();
 	$db->close();
+	
+	// PHP slutt
+	$timeEnd = time();
+	$strEndDateTime = date('Y-m-d\TH:i:sP', $timeEnd);
+	print 'PHP slutt [' . $strEndDateTime . ']';
 
 ?>
 

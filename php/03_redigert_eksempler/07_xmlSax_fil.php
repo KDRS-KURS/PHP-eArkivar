@@ -1,12 +1,12 @@
 <?php
 
-	// Kode for XML SAX skrive til fil (XMLWriter)
+	// Kode for SAX XMLWriter skrive til fil
 	
 	// Parametre for XML
 	include_once '92_xml-info.inc.php';	// xml-filer parametre i egen fil
 
 	// Generelle parametre
-	$thisXmlMetode = 'XML SAX XMLWriter';
+	$thisPhpInfo = 'SAX XMLWriter skrive til fil';
 	$filnavn = $xmlSaxFilnavnUtTest;
 	
 	// PHP script
@@ -19,7 +19,10 @@
 	$strStartDateTime = date('Y-m-d\TH:i:sP', $timeStart);
 	
 	// PHP start
+	print PHP_EOL;
 	print 'PHP start [' . $strStartDateTime . ']' . PHP_EOL;
+	print 'PHP metode [' . $thisPhpInfo . ']' . PHP_EOL;
+	print 'PHP filnavn [' . $thisPhpScript . ']' . PHP_EOL;
 	
 	// Ny instans SAX XMLWriter
 	$sax = new XMLWriter();
@@ -29,7 +32,7 @@
 	
 	// XML root-element <uttrekk> med atributter
 	$sax->startElement('uttrekk');
-		$sax->writeAttribute('xml_write_metode', $thisXmlMetode);
+		$sax->writeAttribute('xml_write_metode', $thisPhpInfo);
 		$sax->writeAttribute('xml_timestamp', $strStartDateTime);
 		$sax->writeAttribute('php_script', $thisPhpScript);
 		
@@ -54,7 +57,7 @@
 	$timeEnd = time();
 	$strEndDateTime = date('Y-m-d\TH:i:sP', $timeEnd);
 	
-	print $thisXmlMetode . ' lagre fil [' . $filnavn . ']' . PHP_EOL;
+	print $thisPhpInfo . ' lagre fil [' . $filnavn . ']' . PHP_EOL;
 	print 'PHP slutt [' . $strEndDateTime . ']' . PHP_EOL;
 	
 ?>
