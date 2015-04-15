@@ -10,11 +10,18 @@
 	// Generelle parametre
 	$thisPhpInfo = 'XML SAX XMLReader lese xml, analyse av all node-typer';
 	$filnavn = $xmlReadSAX2;
+	
+	// Vis node analyse
 	$lengthText = 8;	// =0 vis hele tekst i tekst-node, ellers = vis antall tegn
 	$limitWhileLoopNode = 0;	// = 0 ikke bryt while-løkke med Node, ellers stopp etter x noder
 	$bolVisAnalyseKunTreff = true;	// viser kun analyse av node-typer som blir detektert
 	$bolVisAnalyseIngenTreff = true;	// viser analyse av node-typer uten treff under de med treff
 	$bolVisAnalyseAlt = false;	// viser analysee av alle node-typer (selv om ikke detektert)
+	
+	// Vis element analyse
+	$bolVisElementName = truee;	// = true, vis alle detekterte <element> med teller
+	$bolVisElementNameDepth = false;	// = true, vis alle detekterte <element><depth> med teller
+	$bolVisElementDepthName = true;	// = true, vis alle detekterte <depth><element> med teller
 	
 	// PHP script
 	$thisPhpScript = pathinfo(__file__)['basename'];
@@ -43,10 +50,11 @@
 	print PHP_EOL;
 	
 	// Start analyse av hele xml der det gås til neste node med ->read()
+	
+	// # 1 NODE #
 	// Nodetyper: ELEMENT, SIGNIFICANT_WHITESPACE, TEXT, END_ELEMENT
 	// Skriver ut den første av hver detekterte nodetype sine properties
 	// Teller antall forekomster av hver enkelt nodetype
-	
 	$bolDoWhile = True;
 	$nWhileCount = 0;
 	$arrNodeTypeCount = array();
@@ -155,7 +163,18 @@
 		$bolCheckWhileLoopNodeLimit = false;
 	}
 	$bolWhileLoopNodeAborted = false;
-		
+	
+	// # 2 ELEMENT #
+	$arrElementName = array();
+	$arrElementNameDepth = array();
+	$arrElementDepthName = array();
+	$strThisElement = '';
+	$bolThisElementStart = false;
+	$bolThisElementEnd = false;
+	
+	$strPrevElement = '';
+	$strNextElement = '';
+	
 	while ( $xml->read() ) {
 		$nWhileCount++;
 		
@@ -169,72 +188,163 @@
 			}
 		}
 		
-		// debug
-//		$thisNodeType = $xml->nodeType;
-//		print $nWhileCount . ' - ' . $thisNodeType . ' - ' . $arrNodeContent[$thisNodeType] . PHP_EOL;
-		
+		// Kjent Node Type?
 		if  (!(array_key_exists($xml->nodeType, $arrNodeTypeCount))) {
+			// Nei - Type 18 = ukjent type (error)
 			$arrNodeTypeCount[18]++;
 			$strError .= 'arrNodeTypeCount[' . "'" . $xml->nodeType . "'" . '] eksisterer ikke' . PHP_EOL;
 				
-		} elseif (0 == $arrNodeTypeCount[$xml->nodeType]) {
-			$arrNodeTypeCount[$xml->nodeType] = 1;
+		} else {
+			// Ja - Node Type teller
+			$arrNodeTypeCount[$xml->nodeType]++;
+			
+			// 
+			switch ($xml->nodeType) {
+				// Node Type: Høy prioritet
+				case $xml::ELEMENT:	// 1 Start element
+					// $arrElementName[<name>]
+					if ($bolVisElementName) {
+						if ( array_key_exists($xml->name, $arrElementName) ) {
+							$arrElementName[$xml->name]++;
+						} else {
+							$arrElementName[$xml->name] = 1;
+						}
+					}
+					
+					// $arrElementNameDepth[<name>][<depth>]
+					if ($bolVisElementNameDepth) {
+						if ( isset($arrElementNameDepth[$xml->name][$xml->depth])  ) {
+							$arrElementNameDepth[$xml->name][$xml->depth]++;
+						} else {
+							$arrElementNameDepth[$xml->name][$xml->depth] = 1;
+						}
+					}
+					
+					// $arrElementDepthName[<depth>][<name>]
+					if ($bolVisElementDepthName) {
+						if ( isset($arrElementDepthName[$xml->depth][$xml->name])  ) {
+							$arrElementDepthName[$xml->depth][$xml->name]++;
+						} else {
+							$arrElementDepthName[$xml->depth][$xml->name] = 1;
+						}
+					}
+				break;
+				
+				// Node Type: Lav prioritet
+				case $xml::NONE:	// 0 No node type
+					
+				break;
+				
+				case $xml::ATTRIBUTE:	// 2 Attribute node
+					
+				break;
+				
+				case $xml::TEXT:	// 3 Text node
+					
+				break;
+				
+				case $xml::CDATA:	// 4 CDATA node
+					
+				break;
+				
+				case $xml::ENTITY_REF:	// 5 Enity Reference node
+					
+				break;
+				
+				case $xml::ENTITY:	// 6 Entity Declaration node
+					
+				break;
+				
+				case $xml::PI:	// 7 Processing Instruction node
+					
+				break;
+				
+				case $xml::COMMENT:	// 8 Comment node
+					
+				break;
+				
+				case $xml::DOC:	// 9 Document node
+					
+				break;
+				
+				case $xml::DOC_TYPE:	// 10 Document Type node
+					
+				break;
+				
+				case $xml::DOC_FRAGMENT:	// 11 Document Fragment node
+					
+				break;
+				
+				case $xml::NOTATION:	// 12 Notation node
+					
+				break;
+				
+				case $xml::WHITESPACE:	// 13 Whitespace node
+					
+				break;
+				
+				case $xml::SIGNIFICANT_WHITESPACE:	// 14 Significant Whitespace node
+					
+				break;
+				
+				case $xml::END_ELEMENT:	// 15 End element
+					
+				break;
+				
+				case $xml::END_ENTITY:	// 16 End Entity
+					
+				break;
+				
+				case $xml::XML_DECLARATION:	// 17 XML Declaration node
+					
+				break;
+				
+				default:
+				
+			}	// end switch
+			
+			
+			
 			
 			// Vis verdier til denne noden (første av sin node-type som vi har funnet)				
 			if ('' !== $xml->name) {
-				if ($xml::SIGNIFICANT_WHITESPACE == $xml->nodeType) {
-					
-				} else {
-					$arrNodeContent[$xml->nodeType] .= ', name=' . $xml->name;
-				}
+
 			}
 			
 			if ($xml->hasAttributes) {
-				$arrNodeContent[$xml->nodeType] .= ', attr=' . $xml->attributeCount;
+				
 			}
 			
 			if ($xml->hasValue) {
-				if ($xml::TEXT == $xml->nodeType) {
-					if ($lengthText > 0) {
-						$arrNodeContent[$xml->nodeType] .= ', value=' . substr($xml->value, 0, $lengthText) . '...';
-					} else {
-						$arrNodeContent[$xml->nodeType] .= ', value=' . PHP_EOL . $xml->value;
-					}
-				} elseif ($xml::SIGNIFICANT_WHITESPACE == $xml->nodeType) {
-					
-				} else {
-					$arrNodeContent[$xml->nodeType] .= ', value=' . PHP_EOL . $xml->value;
-				}
+
 			}
 			
 			if ($xml->isDefault) {
-				$arrNodeContent[$xml->nodeType] .= ', is default';
+				
 			}
 			
 			if ($xml->isEmptyElement) {
-				$arrNodeContent[$xml->nodeType] .= ', is empty element';
+				
 			}
 			
 			if ($xml->isEmptyElement) {
-				$arrNodeContent[$xml->nodeType] .= ', is empty element';
+				
 			}
 			
 			if ('' !== $xml->depth) {
-				$arrNodeContent[$xml->nodeType] .= ', depth=' . $xml->depth;
+				
 			}
 			
 			if ('' !== $xml->prefix) {
-				$arrNodeContent[$xml->nodeType] .= ', prefix=' . $xml->prefix;
+				
 			}
 			
 			if ('' !== $xml->xmlLang) {
-				$arrNodeContent[$xml->nodeType] .= ', xml Lang=' . $xml->xmlLang;
+				
 			}
 			
-		} else {
-			$arrNodeTypeCount[$xml->nodeType]++;
-		}
-		
+		} // if Node Type exists
+	
 	}	// end while
 	if (!$bolWhileLoopNodeAborted) {
 		print 'Fullført while loop etter lest ' . $nWhileCount . ' noder' . PHP_EOL;
@@ -283,7 +393,39 @@
 	}
 	print PHP_EOL;
 	
+	
+	// $arrElementName[$xml->name]
+	if ($bolVisElementName) {
+		foreach ($arrElementName as $rowKey => $rowValue) {
+			print 'Element <' . $rowKey . '> antall = ' . $rowValue . PHP_EOL;
+		}
+		print PHP_EOL;
+	}
+	
+	// $arrElementNameDepth[$xml->name][$xml->depth]
+	if ($bolVisElementNameDepth) {
+		foreach ($arrElementNameDepth as $keyElement => $arrElementDepth) {
+			foreach ($arrElementDepth as $keyDepth => $rowValue) {
+				print 'Element <' . $keyElement . '><' . $keyDepth . '> antall = ' . $rowValue . PHP_EOL;
+			}
+			print PHP_EOL;
+		}
+		print PHP_EOL;
+	}
+	
+	// $arrElementNameDepth[$xml->depth][$xml->name]
+	if ($bolVisElementDepthName) {
+		foreach ($arrElementDepthName as $keyDepth => $arrElementName) {
+			foreach ($arrElementName as $keyElement => $rowValue) {
+				print 'Element <' . $keyDepth . '><' . $keyElement . '> antall = ' . $rowValue . PHP_EOL;
+			}
+			print PHP_EOL;
+		}
+		print PHP_EOL;
+	}
+	
 	// PHP slutt
+	print 'PHP start [' . $strStartDateTime . ']' . PHP_EOL;
 	$timeEnd = time();
 	$strEndDateTime = date('Y-m-d\TH:i:sP', $timeEnd);
 	print 'PHP slutt [' . $strEndDateTime . ']' . PHP_EOL;
