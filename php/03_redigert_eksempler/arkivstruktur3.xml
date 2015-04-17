@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uttrekk xml_write_metode="XML DOM" xml_timestamp="2015-04-05T16:59:26+02:00" php_script="06_xmlDom_fil.php">
+  <arkiv system_type="PHP experten" editor="TAA">
+    <systemID system_tag="Pelle og Proffen">1</systemID>
+    <beskrivelse>En beskrivelse</beskrivelse>
+  </arkiv>
+  <arkiv system_type="Kursbase" editor="007">
+    <systemID>2</systemID>
+    <beskrivelse beskrivelse_attr="And The Number Is">Andre beskrivelse</beskrivelse>
+  </arkiv>
+</uttrekk>
