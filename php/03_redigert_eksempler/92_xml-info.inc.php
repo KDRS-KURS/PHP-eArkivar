@@ -26,6 +26,7 @@
 	// read: SAX (XMLReader)
 	$xmlReadSAX = 'arkivstruktur.xml';	// standardverdi 'arkivuttrekk.xml'
 	$xmlReadSAX2 = 'arkivstruktur2.xml';	// standardverdi 'arkivuttrekk2.xml'
+	$xmlReadSAX3 = 'arkivstruktur3.xml';	// standardverdi 'arkivuttrekk3.xml'
 	
 	// xml Header
 	$xmlHeader = '<?xml version="1.0" encoding="UTF-8"?>';

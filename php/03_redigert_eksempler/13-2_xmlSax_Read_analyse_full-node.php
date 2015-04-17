@@ -9,7 +9,8 @@
 	
 	// Generelle parametre
 	$thisPhpInfo = 'XML SAX XMLReader lese xml, analyse av all node-typer';
-	$filnavn = $xmlReadSAX2;
+	$filnavn = $xmlReadSAX3;
+	
 	$lengthText = 8;	// =0 vis hele tekst i tekst-node, ellers = vis antall tegn
 	$limitWhileLoopNode = 0;	// = 0 ikke bryt while-løkke med Node, ellers stopp etter x noder
 	$bolVisAnalyseKunTreff = true;	// viser kun analyse av node-typer som blir detektert
@@ -49,6 +50,7 @@
 	
 	$bolDoWhile = True;
 	$nWhileCount = 0;
+	$arrNodeType = array();
 	$arrNodeTypeCount = array();
 	$arrNodeContent = array();
 	$nErrorCount = 0;
@@ -62,75 +64,93 @@
 		// Men ved å gjøre det med løkke kan koden gjenbrukes uten å måtte sette initiell teller = 0 f. eks.
 		switch ($i) {
 			case $xml::NONE:	// 0 No node type
-				$strThisNode = '1 No node type';				
+				$strThisNode = '1 No node type';
+				$arrNodeType[$i] = 'No node type';
 			break;
 			
 			case $xml::ELEMENT:	// 1 Start element
 				$strThisNode = '2 Start element';
+				$arrNodeType[$i] = 'Start element';
 			break;
 			
 			case $xml::ATTRIBUTE:	// 2 Attribute node
 				$strThisNode = '2 Attribute node';
+				$arrNodeType[$i] = 'Attribute node';
 			break;
 			
 			case $xml::TEXT:	// 3 Text node
 				$strThisNode = '3 Text node';
+				$arrNodeType[$i] = 'Text node';
 			break;
 			
 			case $xml::CDATA:	// 4 CDATA node
 				$strThisNode = '4 CDATA node';
+				$arrNodeType[$i] = 'CDATA';
 			break;
 			
-			case $xml::ENTITY_REF:	// 5 Enity Reference node
-				$strThisNode = '5 Enitity Reference node';
+			case $xml::ENTITY_REF:	// 5 Entity Reference node
+				$strThisNode = '5 Entity Reference node';
+				$arrNodeType[$i] = 'Entity Reference node';
 			break;
 			
 			case $xml::ENTITY:	// 6 Entity Declaration node
 				$strThisNode = '6 Entity Declaration node';
+				$arrNodeType[$i] = 'Entity Declaration node';
 			break;
 			
 			case $xml::PI:	// 7 Processing Instruction node
 				$strThisNode = '7 Processiong Instruction node';
+				$arrNodeType[$i] = 'Processing Instruction node';
 			break;
 			
 			case $xml::COMMENT:	// 8 Comment node
 				$strThisNode = '8 Comment node';
+				$arrNodeType[$i] = 'Comment node';
 			break;
 			
 			case $xml::DOC:	// 9 Document node
 				$strThisNode = '9 Document node';
+				$arrNodeType[$i] = 'Document node';
 			break;
 			
 			case $xml::DOC_TYPE:	// 10 Document Type node
 				$strThisNode = '10 Document Type node';
+				$arrNodeType[$i] = 'Document Type node';
 			break;
 			
 			case $xml::DOC_FRAGMENT:	// 11 Document Fragment node
 				$strThisNode = '11 Document Fragment node';
+				$arrNodeType[$i] = 'Document Fragment node';
 			break;
 			
 			case $xml::NOTATION:	// 12 Notation node
 				$strThisNode = '12 Notation node';
+				$arrNodeType[$i] = 'Notation node';
 			break;
 			
 			case $xml::WHITESPACE:	// 13 Whitespace node
 				$strThisNode = '13 Whitespace node';
+				$arrNodeType[$i] = 'Whitespace node';
 			break;
 			
 			case $xml::SIGNIFICANT_WHITESPACE:	// 14 Significant Whitespace node
 				$strThisNode = '14 Significant Whitespace node';
+				$arrNodeType[$i] = 'Significant Whitespace node';
 			break;
 			
 			case $xml::END_ELEMENT:	// 15 End element
 				$strThisNode = '15 End element node';
+				$arrNodeType[$i] = 'End element node';
 			break;
 			
 			case $xml::END_ENTITY:	// 16 End Entity
 				$strThisNode = '16 End Entity';
+				$arrNodeType[$i] = 'End Entity';
 			break;
 			
 			case $xml::XML_DECLARATION:	// 17 XML Declaration node
 				$strThisNode = '17 XML Declaration node';
+				$arrNodeType[$i] = 'XML Declaration node';
 			break;
 			
 			default:
@@ -139,12 +159,12 @@
 		
 		// Set intial node info this type
 		$arrNodeContent[$i] = ' stk. Node Type=' . $strThisNode;
-		
 	}	// for 
 	
 	// Dummy NodeType if any out of scope
 	$arrNodeTypeCount[18] = 0;
 	$arrNodeContent[18] = ' stk. Node Type=18 Dummy';
+	$arrNodeType[18] = 'Dummy';
 	
 	// Begrense antall noder som skal analyseres?
 	if ($limitWhileLoopNode > 0) {
@@ -155,9 +175,10 @@
 		$bolCheckWhileLoopNodeLimit = false;
 	}
 	$bolWhileLoopNodeAborted = false;
-		
+	
 	while ( $xml->read() ) {
 		$nWhileCount++;
+		$thisNodeText = '';
 		
 		// Begrense antall noder som skal analyseres?
 		if ($bolCheckWhileLoopNodeLimit) {
@@ -175,68 +196,88 @@
 		
 		if  (!(array_key_exists($xml->nodeType, $arrNodeTypeCount))) {
 			$arrNodeTypeCount[18]++;
-			$strError .= 'arrNodeTypeCount[' . "'" . $xml->nodeType . "'" . '] eksisterer ikke' . PHP_EOL;
-				
-		} elseif (0 == $arrNodeTypeCount[$xml->nodeType]) {
-			$arrNodeTypeCount[$xml->nodeType] = 1;
+			$thisNodeText = 'arrNodeTypeCount[' . "'" . $xml->nodeType . "'" . '] eksisterer ikke' . PHP_EOL;
+			$strError .= $thisNodeText;
 			
-			// Vis verdier til denne noden (første av sin node-type som vi har funnet)				
+		} else {
+
+			// Node-type teller
+			if (0 == $arrNodeTypeCount[$xml->nodeType]) {
+				$arrNodeTypeCount[$xml->nodeType] = 1;
+			} else {	
+				$arrNodeTypeCount[$xml->nodeType]++;
+			}
+			
+			// Vis egenskaper til noden
+			$thisNodeText = $arrNodeType[$xml->nodeType];
+			
 			if ('' !== $xml->name) {
-				if ($xml::SIGNIFICANT_WHITESPACE == $xml->nodeType) {
-					
+				if ('#text' == $xml->name) {
+					// Intet
+				} elseif ($xml::ELEMENT == $xml->nodeType) {
+					// 2 = Start element
+					$thisNodeText .= ' <' . $xml->name . '>';
+				} elseif ($xml::END_ELEMENT == $xml->nodeType) {
+					// 15 = End element
+					$thisNodeText .= ' </' . $xml->name . '>';
 				} else {
-					$arrNodeContent[$xml->nodeType] .= ', name=' . $xml->name;
+					$thisNodeText .= ', name=' . $xml->name;
 				}
 			}
 			
 			if ($xml->hasAttributes) {
-				$arrNodeContent[$xml->nodeType] .= ', attr=' . $xml->attributeCount;
+				$thisNodeText .= ', attr=' . $xml->attributeCount;
 			}
 			
 			if ($xml->hasValue) {
 				if ($xml::TEXT == $xml->nodeType) {
 					if ($lengthText > 0) {
-						$arrNodeContent[$xml->nodeType] .= ', value=' . substr($xml->value, 0, $lengthText) . '...';
+						if (strlen($xml->value) > $lengthText) {
+							$thisNodeText .= ', value=[' . substr($xml->value, 0, $lengthText) . '...]';
+						} else {
+							$thisNodeText .= ', value=[' . $xml->value . ']';
+						}
 					} else {
-						$arrNodeContent[$xml->nodeType] .= ', value=' . PHP_EOL . $xml->value;
+						// Value på ny linje
+						$thisNodeText .= ', value=' . PHP_EOL . '[' . $xml->value . ']';
 					}
 				} elseif ($xml::SIGNIFICANT_WHITESPACE == $xml->nodeType) {
 					
 				} else {
-					$arrNodeContent[$xml->nodeType] .= ', value=' . PHP_EOL . $xml->value;
+					$thisNodeText .= ', value=' . PHP_EOL . $xml->value;
 				}
 			}
 			
 			if ($xml->isDefault) {
-				$arrNodeContent[$xml->nodeType] .= ', is default';
+				$thisNodeText .= ', is default';
 			}
 			
 			if ($xml->isEmptyElement) {
-				$arrNodeContent[$xml->nodeType] .= ', is empty element';
+				$thisNodeText .= ', is empty element';
 			}
 			
 			if ($xml->isEmptyElement) {
-				$arrNodeContent[$xml->nodeType] .= ', is empty element';
+				$thisNodeText .= ', is empty element';
 			}
 			
 			if ('' !== $xml->depth) {
-				$arrNodeContent[$xml->nodeType] .= ', depth=' . $xml->depth;
+				$thisNodeText .= ', depth=' . $xml->depth;
 			}
 			
 			if ('' !== $xml->prefix) {
-				$arrNodeContent[$xml->nodeType] .= ', prefix=' . $xml->prefix;
+				$thisNodeText .= ', prefix=' . $xml->prefix;
 			}
 			
 			if ('' !== $xml->xmlLang) {
-				$arrNodeContent[$xml->nodeType] .= ', xml Lang=' . $xml->xmlLang;
+				$thisNodeText .= ', xml Lang=' . $xml->xmlLang;
 			}
-			
-		} else {
-			$arrNodeTypeCount[$xml->nodeType]++;
-		}
+		}	// if arrayKeyExists...
+		
+		print $nWhileCount . ' : ' . $thisNodeText . PHP_EOL;
 		
 	}	// end while
 	if (!$bolWhileLoopNodeAborted) {
+		print PHP_EOL;
 		print 'Fullført while loop etter lest ' . $nWhileCount . ' noder' . PHP_EOL;
 		print PHP_EOL;
 	}
@@ -284,6 +325,7 @@
 	print PHP_EOL;
 	
 	// PHP slutt
+	print 'PHP start [' . $strStartDateTime . ']' . PHP_EOL;
 	$timeEnd = time();
 	$strEndDateTime = date('Y-m-d\TH:i:sP', $timeEnd);
 	print 'PHP slutt [' . $strEndDateTime . ']' . PHP_EOL;

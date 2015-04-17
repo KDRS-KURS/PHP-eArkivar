@@ -9,7 +9,7 @@
 	
 	// Generelle parametre
 	$thisPhpInfo = 'XML SAX XMLReader lese xml, analyse av all node-typer';
-	$filnavn = $xmlReadSAX2;
+	$filnavn = $xmlReadSAX3;
 	
 	// Vis node analyse
 	$lengthText = 8;	// =0 vis hele tekst i tekst-node, ellers = vis antall tegn
@@ -19,9 +19,11 @@
 	$bolVisAnalyseAlt = false;	// viser analysee av alle node-typer (selv om ikke detektert)
 	
 	// Vis element analyse
-	$bolVisElementName = truee;	// = true, vis alle detekterte <element> med teller
+	$bolVisElementName = true;	// = true, vis alle detekterte <element> med teller
 	$bolVisElementNameDepth = false;	// = true, vis alle detekterte <element><depth> med teller
 	$bolVisElementDepthName = true;	// = true, vis alle detekterte <depth><element> med teller
+	$bolVisElementDepthNameNoValue = true;	// = true, vis alle logiske nivåer UNNTATT siste nivå med verdier
+	$bolVisElementDepthParentNameValue = true;	// = true, vis nivåre MED verdier, inklusiv prefix parent-elementer
 	
 	// PHP script
 	$thisPhpScript = pathinfo(__file__)['basename'];
@@ -168,6 +170,13 @@
 	$arrElementName = array();
 	$arrElementNameDepth = array();
 	$arrElementDepthName = array();
+	
+	$arrElementDepthNameNoValue = array();
+	$arrElementDepthParentNameValue = array ();
+
+	$arrElementStack = array();
+	$nElementStack = 0;
+	
 	$strThisElement = '';
 	$bolThisElementStart = false;
 	$bolThisElementEnd = false;
@@ -200,8 +209,15 @@
 			
 			// 
 			switch ($xml->nodeType) {
-				// Node Type: Høy prioritet
+				// ## Node Type: Høy prioritet ##
 				case $xml::ELEMENT:	// 1 Start element
+					print 'ELEMENT line starts here: ' . $xml->name . PHP_EOL;
+					$strThisElement = $xml->name;
+					
+					// $arrElementStack
+					$arrElementStack[$nElementStack] = $xml->name;
+					$nElementStack++;
+					
 					// $arrElementName[<name>]
 					if ($bolVisElementName) {
 						if ( array_key_exists($xml->name, $arrElementName) ) {
@@ -228,19 +244,50 @@
 							$arrElementDepthName[$xml->depth][$xml->name] = 1;
 						}
 					}
-				break;
+					
+					// $arrElementDepthNameNoValue[<depth>][<name>]
+					
+					
+					// $arrElementDepthParentNameValue[<depth>][<parent>][<name>]
+					
+					print 'ELEMENT line stops here: ' . $xml->name . PHP_EOL;
+				break;	// end ::ELEMENT
 				
-				// Node Type: Lav prioritet
+				case $xml::END_ELEMENT:	// 15 End element
+					print 'END_ELEMENT line starts here: ' . $xml->name . PHP_EOL;
+					// Sjekk på END_ELEMENT er unødvendig fordi 
+					// XMLReader sjekker om START og END_ELEMENT korresponderer
+					
+					// $arrElementStack
+					if ($xml->name == $arrElementStack[$nElementStack-1]) {
+						// korrekt END_ELEMENT
+						unset($arrElementStack[$nElementStack]);
+						$nElementStack--;
+					} else {
+						// feil END_ELEMENT
+						$strError .= 'Feil END_ELEMENT </' . $xml->name . '>, depth=' . $xml->depth . PHP_EOL;
+						$arrElementStack[$nElementStack] = $xml->name;
+						$nElementStack--;
+					}
+					print 'END_ELEMENT line stops here: ' . $xml->name . PHP_EOL;
+				break;	// end ::END_ELEMENT
+				
+				
+				// ## Node Type: Lav prioritet ##
 				case $xml::NONE:	// 0 No node type
 					
 				break;
 				
 				case $xml::ATTRIBUTE:	// 2 Attribute node
-					
+					print 'ATTRIBUTE line starts here: ' . $xml->name . PHP_EOL;
+					print 'attribute' . PHP_EOL;
+					print 'ATTRIBUTE line stops here: ' . $xml->name . PHP_EOL;
 				break;
 				
 				case $xml::TEXT:	// 3 Text node
-					
+					print 'TEXT line starts here: ' . $xml->name . PHP_EOL;
+					print 'text value ' . $xml->value . PHP_EOL;
+					print 'TEXT line stops here: ' . $xml->name . PHP_EOL;
 				break;
 				
 				case $xml::CDATA:	// 4 CDATA node
@@ -284,10 +331,6 @@
 				break;
 				
 				case $xml::SIGNIFICANT_WHITESPACE:	// 14 Significant Whitespace node
-					
-				break;
-				
-				case $xml::END_ELEMENT:	// 15 End element
 					
 				break;
 				
@@ -354,6 +397,7 @@
 	// Vis kun node-typer som er representert
 	// Legg til tellere og presenter analyseresultater
 	if ($bolVisAnalyseKunTreff) {
+		print 'Detekterte noder' . PHP_EOL;
 		for ($i=0; $i<19; $i++) {
 			if ($arrNodeTypeCount[$i] > 0) {				
 				// print antall treff de ulike node-typer
@@ -366,6 +410,7 @@
 	// Vis kun node-typer som IKKE er representert
 	// Legg til tellere og presenter analyseresultater
 	if ($bolVisAnalyseIngenTreff) {
+		print 'Ikke-detekterte noder' . PHP_EOL;
 		for ($i=0; $i<19; $i++) {
 			if (0 == $arrNodeTypeCount[$i]) {				
 				// print antall treff de ulike node-typer
@@ -378,6 +423,7 @@
 	// Vis alle node-typer representert og IKKE representert sortert etter node type nr.
 	// Legg til tellere og presenter analyseresultater
 	if ($bolVisAnalyseAlt) {
+		print 'Alle noder' . PHP_EOL;
 		for ($i=0; $i<19; $i++) {
 			// print antall treff de ulike node-typer
 			print $arrNodeTypeCount[$i] . $arrNodeContent[$i] . PHP_EOL;
@@ -385,17 +431,9 @@
 		print PHP_EOL;
 	}
 	
-	// Error count
-	print 'Antall feil = ' . $nErrorCount . PHP_EOL;
-	if ('' !== $strError) {
-		print 'Feilmeldinger:' . PHP_EOL;
-		print $strError;
-	}
-	print PHP_EOL;
-	
-	
 	// $arrElementName[$xml->name]
 	if ($bolVisElementName) {
+		print 'Alle elementer' . PHP_EOL;
 		foreach ($arrElementName as $rowKey => $rowValue) {
 			print 'Element <' . $rowKey . '> antall = ' . $rowValue . PHP_EOL;
 		}
@@ -404,6 +442,7 @@
 	
 	// $arrElementNameDepth[$xml->name][$xml->depth]
 	if ($bolVisElementNameDepth) {
+		print 'Alle elementer og dybde' . PHP_EOL;
 		foreach ($arrElementNameDepth as $keyElement => $arrElementDepth) {
 			foreach ($arrElementDepth as $keyDepth => $rowValue) {
 				print 'Element <' . $keyElement . '><' . $keyDepth . '> antall = ' . $rowValue . PHP_EOL;
@@ -415,6 +454,7 @@
 	
 	// $arrElementNameDepth[$xml->depth][$xml->name]
 	if ($bolVisElementDepthName) {
+		print 'Alle dybde og elementer' . PHP_EOL;
 		foreach ($arrElementDepthName as $keyDepth => $arrElementName) {
 			foreach ($arrElementName as $keyElement => $rowValue) {
 				print 'Element <' . $keyDepth . '><' . $keyElement . '> antall = ' . $rowValue . PHP_EOL;
@@ -423,6 +463,40 @@
 		}
 		print PHP_EOL;
 	}
+	
+	// $arrElementDepthNameNoValue[$xml->depth][$xml->name]
+	if ($bolVisElementDepthNameNoValue) {
+		print 'Alle elementer uten verdi' . PHP_EOL;
+		foreach ($arrElementDepthNameNoValue as $keyDepth => $arrElementName) {
+			foreach ($arrElementName as $keyElement => $rowValue) {
+				print 'Element <' . $keyDepth . '><' . $keyElement . '> antall = ' . $rowValue . PHP_EOL;
+			}
+			print PHP_EOL;
+		}
+		print PHP_EOL;
+	}
+	
+	// $arrElementDepthParentNameValue[$xml->depth][$parent][$xml->name]
+	if ($bolVisElementDepthParentNameValue) {
+		print 'Alle elementer med verdi' . PHP_EOL;
+		foreach ($arrElementDepthParentNameValue as $keyDepth => $arrElementParentName) {
+			foreach ($arrElementParentName as $keyParent => $arrElementName) {
+				foreach ($arrElementParentName as $keyElement => $rowValue) {
+					print 'Element <' . $keyDepth . '><' . $keyElement . '> antall = ' . $rowValue . PHP_EOL;
+				}
+			}
+			print PHP_EOL;
+		}
+		print PHP_EOL;
+	}
+	
+	// Error count
+	print 'Antall feil = ' . $nErrorCount . PHP_EOL;
+	if ('' !== $strError) {
+		print 'Feilmeldinger:' . PHP_EOL;
+		print $strError;
+	}
+	print PHP_EOL;
 	
 	// PHP slutt
 	print 'PHP start [' . $strStartDateTime . ']' . PHP_EOL;

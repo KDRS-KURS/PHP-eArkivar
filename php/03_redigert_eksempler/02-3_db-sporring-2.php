@@ -1,6 +1,7 @@
 <?php
 
 	// Kode for SQL-spørring mot database
+	// Leser og viser: Arkiv, Arkivdel, Saksmappe
 	
 	// Parametre for tilkobling til database
 	include_once '91_db-info.inc.php';	// database parametre i egen fil
