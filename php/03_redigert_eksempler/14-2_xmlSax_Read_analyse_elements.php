@@ -2,7 +2,7 @@
 	
 	// Kode for XML SAX lese fra fil (XMLReader)
 	// Leser en og en "node-type" fra start til slutt av xml-fil og logger innhold
-	// Logger tellere node-typer detektert, samt individuelle ELEMENT, TEXT og END_ELEMENT node-typer
+	// Logger tellere node-typer ELEMENT, TEXT, END_ELEMENT og ATTRIBUTES (debug modus)
 	
 	// Parametre for XML
 	include_once '92_xml-info.inc.php';	// xml-filer parametre i egen fil
@@ -358,7 +358,26 @@
 			}
 			
 			if ($xml->hasAttributes) {
-				print 'hasAttributes' . ', nodeType = ' . $xml->nodeType. PHP_EOL;
+				print 'hasAttributes (' . $xml->attributeCount . ' stk.), nodeType = ' . $xml->nodeType. PHP_EOL;
+				
+				if ($xml::ELEMENT == $xml->nodeType) {
+					// KUN sjekke atributtene for Node-Type ELEMENT !
+					$nAttributeCount = $xml->attributeCount;
+					print 'ELEMENT attrib' . PHP_EOL;
+					for ($i=0; $i < $nAttributeCount; $i++) {
+						if (0 == $i) {
+							// 1st Attribute
+							$xml->moveToFirstAttribute();
+						} else {
+							// Following Attributes
+							$xml->moveToNextAttribute();
+						}
+//						$atttribNodeType = $xml->nodeType;	// const int DEFAULTATTRS = 2 ;
+						$atttribName = $xml->name;
+						$atttribValue = $xml->value;
+						print 'A' . $i . ' name = [' . $atttribName . '], value = [' . $atttribValue . ']' . PHP_EOL;
+					}
+				}
 			}
 			
 			if ($xml->hasValue) {
