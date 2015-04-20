@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<setup name="setup" id="setup" xml_rev="2015-04-18">
+    <special_char>æøåÆØÅ</special_char>
+    <dataset>
+		<dir priority="1" type="setup.ini">dataset-dir</dir>
+		<dir priority="2" type="dir">c:\uttrekk</dir>
+		<dir priority="3" type="default">uttrekk</dir>
+	</dataset>
+	<log>
+		<dir priority="1" type="setup.ini">log-dir</dir>
+		<dir priority="2" type="default">log</dir>
+		<dir priority="3" type="dir">c:\log</dir>
+	</log>
+</setup>
