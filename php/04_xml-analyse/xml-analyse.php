@@ -11,7 +11,7 @@
 	// Going forward on the document stream and stopping at each node on the way.
 	
 	// Main PHP-script
-	$mainPhpScript = pathinfo(__file__)['basename'];	// Main PHP script
+	$strPhpScript = pathinfo(__file__)['basename'];	// Main PHP script
 	
 	// Inc sections: init & functions
 	include_once 'inc\init.inc.php';

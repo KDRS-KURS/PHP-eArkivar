@@ -1,6 +1,6 @@
 <?php
 
-	### functions.inc.php ###
+	### end.inc.php ###
 	
 	// PHP script
 	$strIncPhpScript = pathinfo(__file__)['basename'];
@@ -10,11 +10,18 @@
 		print 'START php include >>> ' . $strIncPhpScript . ' >>>' . PHP_EOL;
 	}
 	
-	print '... functions.inc.php dummy line ...' . PHP_EOL;
+	print '... end.inc.php dummy line ...' . PHP_EOL;
 	
 	// END inc-section
 	if ($bolDebugInc) {
 		print 'END php include <<< ' . $strIncPhpScript . ' <<<' . PHP_EOL;
 	}
+	
+	// PHP slutt
+	print PHP_EOL;
+	print 'PHP start [' . $strStartDateTime . ']' . PHP_EOL;
+	$timeEnd = time();
+	$strEndDateTime = date('Y-m-d\TH:i:sP', $timeEnd);
+	print 'PHP slutt [' . $strEndDateTime . ']' . PHP_EOL;
 	
 ?>

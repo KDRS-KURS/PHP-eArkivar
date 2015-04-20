@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uttrekk xml_write_metode="XML SAX XMLWriter" xml_timestamp="2015-04-05T16:13:54+02:00" php_script="07_xmlSax_fil.php">
+ <arkiv>
+  <systemID>1</systemID>
+  <beskrivelse>En beskrivelse</beskrivelse>
+ </arkiv>
+ <arkiv>
+  <systemID>2</systemID>
+  <beskrivelse>Andre beskrivelse</beskrivelse>
+ </arkiv>
+</uttrekk>

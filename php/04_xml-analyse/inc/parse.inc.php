@@ -10,7 +10,7 @@
 		print 'START php include >>> ' . $strIncPhpScript . ' >>>' . PHP_EOL;
 	}
 	
-	print '... functions.inc.php dummy line ...' . PHP_EOL;
+	print '... parse.inc.php dummy line ...' . PHP_EOL;
 	
 	// END inc-section
 	if ($bolDebugInc) {
