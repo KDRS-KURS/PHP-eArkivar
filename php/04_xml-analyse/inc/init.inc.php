@@ -3,10 +3,15 @@
 	### init.inc.php ###
 	
 	// Global variables created in this include-section:
+	
+	// Read from PHP console parameters
 	// $arrPhpParameter[<parameter key>] = <parameter value>
 	$arrPhpParameter = array();
 	
-	// Generelle parametre
+	// General parameters
+	$bolDebugInit = true;	// = true, print debug info from init-section
+	
+	// setup files
 	$filenameXmlCodeVersion = 'xml\code_version.xml';
 	$filenameIniSetup = 'xml-analyse.ini';
 	$filenameXmlSetup = 'xml\setup.xml';
@@ -39,6 +44,43 @@
 	print PHP_EOL;
 	print 'PHP start [' . $strStartDateTime . ']' . PHP_EOL;
 	print 'PHP filnavn "' . $mainPhpScript . '"' . PHP_EOL;
+	
+	// code version: name, version, date
+	if (!$xmlCodeVersion = simplexml_load_file($filenameXmlCodeVersion)) {
+		// Feil: får ikke åpnet xml-fil
+		print 'Error opening code version filename [' . $filenameXmlCodeVersion . ']' .  PHP_EOL;
+		print '> PHP EXIT <' . PHP_EOL;
+		exit;
+	} else {
+		print '- Open code version filename "' . $filenameXmlCodeVersion . '"' . PHP_EOL;
+	}
+	
+	// name
+	if ( isset($xmlCodeVersion->name) ) {
+		print '-- Code name "' . $xmlCodeVersion->name . '"' . PHP_EOL;
+	} else {
+		print 'Error code name' . PHP_EOL;
+		print '> PHP EXIT <' . PHP_EOL;
+		exit;
+	}
+	
+	// version
+	if ( isset($xmlCodeVersion->version) ) {
+		print '-- Code version "' . $xmlCodeVersion->version . '"' . PHP_EOL;
+	} else {
+		print 'Error code version' . PHP_EOL;
+		print '> PHP EXIT <' . PHP_EOL;
+		exit;
+	}
+	
+	// date
+	if ( isset($xmlCodeVersion->date) ) {
+		print '-- Code date "' . $xmlCodeVersion->date . '"' . PHP_EOL;
+	} else {
+		print 'Error code date' . PHP_EOL;
+		print '> PHP EXIT <' . PHP_EOL;
+		exit;
+	}
 	
 	// START inc-section
 	if ($bolDebugInit) {

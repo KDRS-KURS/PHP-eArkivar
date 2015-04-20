@@ -10,9 +10,6 @@
 	// Using the SAX XMLReader extension (an XML Pull parser).
 	// Going forward on the document stream and stopping at each node on the way.
 	
-	// General parameters
-	$bolDebugInit = true;	// = true, print debug info from init-section
-	
 	// Main PHP-script
 	$mainPhpScript = pathinfo(__file__)['basename'];	// Main PHP script
 	
