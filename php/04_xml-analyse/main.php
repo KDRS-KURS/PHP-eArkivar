@@ -13,9 +13,11 @@
 	// Main PHP-script
 	$strPhpScript = pathinfo(__file__)['basename'];	// Main PHP script
 	
-	// Inc sections: init & functions
+	// Inc sections
 	include_once 'inc\init.inc.php';
 	include_once 'inc\setup.inc.php';
 	include_once 'inc\functions.inc.php';
+	include_once 'inc\parse.inc.php';
+	include_once 'inc\end.inc.php';
 	
 ?>

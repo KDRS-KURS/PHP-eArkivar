@@ -20,7 +20,7 @@
 		print 'START php include >>> ' . $strIncPhpScript . ' >>>' . PHP_EOL;
 	}
 	
-	// INI setup-file
+	##### 1 - INI setup-file #####
 	$bolIniSetupError = false;
 	if (!$fSetup = fopen($filenameIniSetup, 'r')) {
 		// Feil: får ikke åpnet ini-fil
@@ -173,7 +173,8 @@
 		exit;
 	}
 	
-	// XML setup-file
+	##### 2 - XML setup-file #####
+	$bolXmlSetupError = false;
 	if (!$xmlSetup = simplexml_load_file($filenameXmlSetup)) {
 		// Feil: får ikke åpnet xml-fil
 		print 'Error opening setup filename [' . $filenameXmlSetup . ']' .  PHP_EOL;
@@ -182,7 +183,15 @@
 	} else {
 		print '- Open setup filename "' . $filenameXmlSetup . '"' . PHP_EOL;
 	}
-
+	
+	
+	
+	if ($bolXmlSetupError) {
+		print '-- XML setup-file errors detected' .  PHP_EOL;
+		print '> PHP EXIT <' . PHP_EOL;
+		exit;
+	}
+	
 	
 	
 	// ToDO: debug parameter vs debug setup

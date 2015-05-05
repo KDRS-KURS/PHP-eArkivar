@@ -3,12 +3,22 @@
     <special_char>æøåÆØÅ</special_char>
     <dataset>
 		<dir priority="1" type="setup.ini">dataset-dir</dir>
-		<dir priority="2" type="dir">c:\uttrekk</dir>
+		<dir priority="2" type="dir">uttrekk</dir>
 		<dir priority="3" type="default">uttrekk</dir>
 	</dataset>
+	<subdir>
+		<dir priority="1" type="setup.ini">subdir</dir>
+		<dir priority="2" type="value">1</dir>
+		<dir priority="3" type="default">1</dir>
+	</subdir>
 	<log>
 		<dir priority="1" type="setup.ini">log-dir</dir>
-		<dir priority="2" type="default">log</dir>
-		<dir priority="3" type="dir">c:\log</dir>
+		<dir priority="2" type="dir">log</dir>
+		<dir priority="3" type="default">log</dir>
 	</log>
+	<debug>
+		<dir priority="1" type="setup.ini">debug</dir>
+		<dir priority="2" type="value">1</dir>
+		<dir priority="3" type="default">1</dir>
+	</debug>
 </setup>

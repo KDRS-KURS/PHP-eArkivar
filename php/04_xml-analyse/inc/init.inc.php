@@ -13,7 +13,7 @@
 	
 	// setup files
 	$filenameXmlCodeVersion = 'xml\code_version.xml';
-	$filenameIniSetup = 'xml-analyse.ini';
+	$filenameIniSetup = 'setup.ini';
 	$filenameXmlSetup = 'xml\setup.xml';
 	
 	// PHP script
@@ -57,7 +57,7 @@
 			print 'log-dir=/home/username/log   linux style' . PHP_EOL;
 			print PHP_EOL;
 			print 'debug=0   no debugging' . PHP_EOL;
-			print 'debug=1   debug level 1' . PHP_EOL;
+			print 'debug=1   (default) debug level 1' . PHP_EOL;
 			print 'debug=2   debug level 2' . PHP_EOL;
 			print 'debug=n   debug level n etc.' . PHP_EOL;
 			exit;
