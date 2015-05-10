@@ -14,10 +14,11 @@
 	$strPhpScript = pathinfo(__file__)['basename'];	// Main PHP script
 	
 	// Inc sections
-	include_once 'inc\init.inc.php';
-	include_once 'inc\setup.inc.php';
-	include_once 'inc\functions.inc.php';
-	include_once 'inc\parse.inc.php';
-	include_once 'inc\end.inc.php';
+	include_once 'inc\11_init.inc.php';
+	include_once 'inc\13_setup-read.inc.php';
+	include_once 'inc\12_functions.inc.php';
+	include_once 'inc\14_setup-select.inc.php';
+	include_once 'inc\21_parse.inc.php';
+	include_once 'inc\91_end.inc.php';
 	
 ?>
