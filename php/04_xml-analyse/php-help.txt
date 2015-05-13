@@ -1,0 +1,22 @@
+Usage example (all parameters are optional):
+"php ' . $strPhpScript . ' dataset-dir=uttrekk subdir=0 log-dir=log debug=0"
+
+Parameters:
+
+dataset-dir=uttrekk   (default)        relative path to this PHP-script
+dataset-dir=c:\uttrekk\tabelluttrekk   windows style
+dataset-dir=/home/username/uttrekk     linux style
+
+subdir=0   parse all subdirectories for xml-files to analyse
+subdir=1   (default) analyse xml-files in main directory only
+subdir=2   analyse xml-files in main and 1 subdirectory
+subdir=n   analyse xml-files in main and n-1 subdirectories etc.
+
+log-dir=log   (default)      relative path to this PHP-script
+log-dir=c:\log               windows style
+log-dir=/home/username/log   linux style
+
+debug=0   no debugging
+debug=1   (default) debug level 1
+debug=2   debug level 2
+debug=n   debug level n etc.

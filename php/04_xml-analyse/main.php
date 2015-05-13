@@ -15,8 +15,8 @@
 	
 	// Inc sections
 	include_once 'inc\11_init.inc.php';
-	include_once 'inc\13_setup-read.inc.php';
 	include_once 'inc\12_functions.inc.php';
+	include_once 'inc\13_setup-read.inc.php';
 	include_once 'inc\14_setup-select.inc.php';
 	include_once 'inc\21_parse.inc.php';
 	include_once 'inc\91_end.inc.php';
